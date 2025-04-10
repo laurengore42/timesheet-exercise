@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Timesheets.Web.Persistence.Models
+namespace Timesheets.Core.Persistence.Models
 {
 	public class Timesheet
 	{

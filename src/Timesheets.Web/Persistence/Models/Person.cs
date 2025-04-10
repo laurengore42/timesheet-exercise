@@ -1,6 +1,6 @@
-﻿namespace Timesheets.Web.Persistence.Models
+﻿namespace Timesheets.Core.Persistence.Models
 {
-	public class Project
+	public class Person
 	{
 		public Guid Id { get; set; }
 		public string Name { get; set; } = string.Empty;

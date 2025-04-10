@@ -10,4 +10,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Timesheets.Web\Timesheets.Core.csproj" />
+  </ItemGroup>
+
 </Project>

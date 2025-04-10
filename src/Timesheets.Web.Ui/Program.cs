@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Timesheets.Web.Persistence;
+using Timesheets.Core.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
 

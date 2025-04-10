@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Timesheets.Web.Persistence.Models;
+using Timesheets.Core.Persistence.Models;
 
-namespace Timesheets.Web.Persistence
+namespace Timesheets.Core.Persistence
 {
 	public static class SeedingHelper
 	{

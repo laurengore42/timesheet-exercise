@@ -1,10 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Timesheets.Web.Persistence;
-using Timesheets.Web.Persistence.Models;
-using Timesheets.Web.ViewModels;
+using Timesheets.Core.Persistence;
+using Timesheets.Core.Persistence.Models;
 
-namespace Timesheets.Web.Controllers
+namespace Timesheets.Web.Ui.Controllers
 {
 	public class TimesheetController(TimesheetDbContext ctx) : Controller
 	{

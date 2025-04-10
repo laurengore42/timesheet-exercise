@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Timesheets.Web.Persistence;
-using Timesheets.Web.ViewModels;
+using Timesheets.Core.Persistence;
+using Timesheets.Web.Ui.ViewModels;
 
-namespace Timesheets.Web.Controllers
+namespace Timesheets.Web.Ui.Controllers
 {
 	public class HomeController(TimesheetDbContext ctx) : Controller
 	{

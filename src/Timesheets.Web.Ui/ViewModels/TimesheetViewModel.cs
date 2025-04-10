@@ -1,6 +1,6 @@
-﻿using Timesheets.Web.Persistence.Models;
+﻿using Timesheets.Core.Persistence.Models;
 
-namespace Timesheets.Web.ViewModels
+namespace Timesheets.Web.Ui.ViewModels
 {
 	public class TimesheetViewModel(Timesheet t)
 	{
