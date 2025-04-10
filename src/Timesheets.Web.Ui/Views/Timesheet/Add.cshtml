@@ -1,0 +1,31 @@
+﻿@model string
+
+@{
+    Layout = "/Views/Shared/_Layout.cshtml";
+}
+
+<div class="timesheets-form__message">
+    @Model
+</div>
+
+<div class="timesheets-form">
+    @using (Html.BeginForm())
+    {
+        <div class="timesheets-form__input">
+            <label for="memo">Memo</label>
+            <input id="memo" name="memo" type="text" />
+        </div>
+        <div class="timesheets-form__input">
+            <label for="hours">Hours</label>
+            <input id="hours" name="hours" type="number" step="0.25" />
+        </div>
+        <div class="timesheets-form__input">
+            <label for="date">Date</label>
+            <input id="date" name="date" type="date" />
+        </div>
+        <button type="submit">Add</button>
+    }
+</div>
+<div>
+    <a href="/">View sheets</a>
+</div>

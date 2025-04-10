@@ -6,13 +6,14 @@ namespace Timesheets.Web.Persistence.Models
 	{
 		public Guid Id { get; set; }
 		public Guid PersonId { get; set; }
-		[ForeignKey("PersonId")]
-		public Person? Person { get; set; }
 		public DateOnly Date { get; set; }
 		public Guid ProjectId { get; set; }
-		[ForeignKey("ProjectId")]
-		public Project? Project { get; set; }
 		public string Memo { get; set; } = string.Empty;
 		public decimal Hours { get; set; }
+
+		[ForeignKey("PersonId")]
+		public Person? Person { get; set; }
+		[ForeignKey("ProjectId")]
+		public Project? Project { get; set; }
 	}
 }

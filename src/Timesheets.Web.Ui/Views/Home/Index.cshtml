@@ -1,48 +1,52 @@
-﻿@using Microsoft.EntityFrameworkCore
-@using Timesheets.Web.Persistence
-@using Timesheets.Web.ViewModels
+﻿@using Timesheets.Web.ViewModels
 @model IEnumerable<TimesheetViewModel>
 
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
-<table class="timesheets-display">
-    <tr class="timesheets-display__row--heading">
-        <th class="timesheets-display__heading timesheets-display__heading--text">
-            Name
-        </th>
-        <th class="timesheets-display__heading timesheets-display__heading--date">
-            Date
-        </th>
-        <th class="timesheets-display__heading timesheets-display__heading--text">
-            Project
-        </th>
-        <th class="timesheets-display__heading timesheets-display__heading--text">
-            Memo
-        </th>
-        <th class="timesheets-display__heading timesheets-display__heading--number">
-            Hours
-        </th>
-    </tr>
-    @foreach (var timesheet in Model)
-    {
-        <tr>
-            <td class="timesheets-display__cell timesheets-display__cell--text">
-                @timesheet.PersonName
-            </td>
-            <td class="timesheets-display__cell timesheets-display__cell--date">
-                @timesheet.Date
-            </td>
-            <td class="timesheets-display__cell timesheets-display__cell--text">
-                @timesheet.ProjectName
-            </td>
-            <td class="timesheets-display__cell timesheets-display__cell--text">
-                @timesheet.Memo
-            </td>
-            <td class="timesheets-display__cell timesheets-display__cell--number">
-                @timesheet.Hours
-            </td>
+<div>
+    <a href="/Timesheet/Add">Log work</a>
+</div>
+
+<div>
+    <table class="timesheets-display">
+        <tr class="timesheets-display__row--heading">
+            <th class="timesheets-display__heading timesheets-display__heading--text">
+                Name
+            </th>
+            <th class="timesheets-display__heading timesheets-display__heading--date">
+                Date
+            </th>
+            <th class="timesheets-display__heading timesheets-display__heading--text">
+                Project
+            </th>
+            <th class="timesheets-display__heading timesheets-display__heading--text">
+                Memo
+            </th>
+            <th class="timesheets-display__heading timesheets-display__heading--number">
+                Hours
+            </th>
         </tr>
-    }
-</table>
+        @foreach (var timesheet in Model)
+        {
+            <tr>
+                <td class="timesheets-display__cell timesheets-display__cell--text">
+                    @timesheet.PersonName
+                </td>
+                <td class="timesheets-display__cell timesheets-display__cell--date">
+                    @timesheet.Date
+                </td>
+                <td class="timesheets-display__cell timesheets-display__cell--text">
+                    @timesheet.ProjectName
+                </td>
+                <td class="timesheets-display__cell timesheets-display__cell--text">
+                    @timesheet.Memo
+                </td>
+                <td class="timesheets-display__cell timesheets-display__cell--number">
+                    @timesheet.Hours
+                </td>
+            </tr>
+        }
+    </table>
+</div>
