@@ -17,13 +17,13 @@ namespace Timesheets.Web.Ui.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-				return View("Add");
+				return View(timesheet);
 			}
 
 			ctx.Timesheets.Add(timesheet);
 			ctx.SaveChanges();
 
-			return View("Add");
+			return RedirectToAction("Index", "Home");
 		}
 	}
 }
