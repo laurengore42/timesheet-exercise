@@ -20,6 +20,9 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(timesheet);
             }
 
+            // TO DO handle a No here
+            // TO DO we need 'add person' and 'add project' forms
+            // TO DO display validation for modelstate invalid?
             if (timesheetService.AddTimesheet(timesheet))
 			{
 				return RedirectToAction("Index", "Home");
