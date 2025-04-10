@@ -26,11 +26,10 @@ namespace Timesheets.Web.Persistence
 					}
 				};
 
-			var testProject = context.Set<Timesheet>().FirstOrDefault(t => t.Name == "Project Alpha");
+			var testProject = context.Set<Project>().FirstOrDefault(t => t.Name == "Project Alpha");
 			if (testProject == null)
 			{
 				context.Set<Project>().AddRange(sampleProjects);
-				context.SaveChanges();
 			}
 
 			var sampleTimesheets = new List<Timesheet>
@@ -68,8 +67,9 @@ namespace Timesheets.Web.Persistence
 			if (testTimesheet == null)
 			{
 				context.Set<Timesheet>().AddRange(sampleTimesheets);
-				context.SaveChanges();
 			}
+
+			context.SaveChanges();
 		}
 	}
 }

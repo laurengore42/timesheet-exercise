@@ -1,10 +1,10 @@
-﻿@using Timesheets.Web.Persistence;
-@inject TimesheetDbContext timesheetDbContext;
+﻿@using Microsoft.EntityFrameworkCore
+@using Timesheets.Web.Persistence
+@using Timesheets.Web.ViewModels
+@model IEnumerable<TimesheetViewModel>
 
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
-
-    var timesheets = timesheetDbContext.Timesheets;
 }
 
 <table class="timesheets-display">
@@ -25,17 +25,17 @@
             Hours
         </th>
     </tr>
-    @foreach (var timesheet in timesheets)
+    @foreach (var timesheet in Model)
     {
         <tr>
             <td class="timesheets-display__cell timesheets-display__cell--text">
                 @timesheet.Name
             </td>
             <td class="timesheets-display__cell timesheets-display__cell--date">
-                @timesheet.Date.ToString("dd/MM/yyyy")
+                @timesheet.Date
             </td>
             <td class="timesheets-display__cell timesheets-display__cell--text">
-                @timesheet.ProjectId
+                @timesheet.ProjectName
             </td>
             <td class="timesheets-display__cell timesheets-display__cell--text">
                 @timesheet.Memo
