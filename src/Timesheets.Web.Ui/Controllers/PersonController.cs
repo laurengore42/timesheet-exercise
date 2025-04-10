@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Timesheets.Core.Persistence.Models;
-using Timesheets.Web.Ui.Services;
+using Timesheets.Core.Services;
 
 namespace Timesheets.Web.Ui.Controllers
 {
@@ -19,7 +19,9 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(person);
             }
 
-            if (personService.AddPerson(person))
+			// TO DO handle a No here
+			// TO DO display validation for modelstate invalid?
+			if (personService.AddPerson(person))
 			{
 				return RedirectToAction("Add", "Timesheet");
 			}

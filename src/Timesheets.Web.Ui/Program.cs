@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Timesheets.Core.Persistence;
-using Timesheets.Web.Ui.Services;
+using Timesheets.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +17,7 @@ builder.Services.AddDbContext<TimesheetDbContext>(optionsBuilder =>
 builder.Services.AddScoped<IProjectService, ProjectService>();
 builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ITimesheetService, TimesheetService>();
+builder.Services.AddScoped<ICsvService, CsvService>();
 
 var app = builder.Build();
 

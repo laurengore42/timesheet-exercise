@@ -1,18 +1,18 @@
 ﻿using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 
-namespace Timesheets.Web.Ui.Services
+namespace Timesheets.Core.Services
 {
-    public class PersonService(TimesheetDbContext ctx) : IPersonService
+    public class ProjectService(TimesheetDbContext ctx) : IProjectService
 	{
-		public bool AddPerson(Person person)
+		public bool AddProject(Project project)
 		{
-			if (ctx.Persons is null)
+			if (ctx.Projects is null)
 			{
 				throw new InvalidOperationException("Could not access database tables");
 			}
 
-			ctx.Persons.Add(person);
+			ctx.Projects.Add(project);
 			ctx.SaveChanges();
 
 			return true;

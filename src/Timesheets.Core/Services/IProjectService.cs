@@ -1,6 +1,6 @@
 ﻿using Timesheets.Core.Persistence.Models;
 
-namespace Timesheets.Web.Ui.Services
+namespace Timesheets.Core.Services
 {
     public interface IProjectService
 	{

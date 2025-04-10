@@ -56,3 +56,4 @@ TestResult.xml
 nunit-*.xml
 /src/Timesheets.Web.Ui/node_modules
 /src/Timesheets.Web.Ui/wwwroot/css
+/src/Timesheets.Web.Ui/assets/export.csv

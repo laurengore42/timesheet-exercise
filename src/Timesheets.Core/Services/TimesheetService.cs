@@ -1,7 +1,7 @@
 ﻿using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 
-namespace Timesheets.Web.Ui.Services
+namespace Timesheets.Core.Services
 {
     public class TimesheetService(TimesheetDbContext ctx) : ITimesheetService
     {

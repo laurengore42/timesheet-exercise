@@ -58,24 +58,24 @@ namespace Timesheets.Core.Persistence
 			}
 		];
 
-		public static void SeedDatabase(DbContext context)
+		public static void SeedDatabase(DbContext ctx)
 		{
-			if (context.Set<Project>().FirstOrDefault(t => t.Name == "Project Alpha") is null)
+			if (ctx.Set<Project>().FirstOrDefault(t => t.Name == "Project Alpha") is null)
 			{
-				context.Set<Project>().AddRange(SampleProjects);
+				ctx.Set<Project>().AddRange(SampleProjects);
 			}
 
-			if (context.Set<Person>().FirstOrDefault(t => t.Name == "John Smith") is null)
+			if (ctx.Set<Person>().FirstOrDefault(t => t.Name == "John Smith") is null)
 			{
-				context.Set<Person>().AddRange(SamplePersons);
+				ctx.Set<Person>().AddRange(SamplePersons);
 			}
 
-			if (context.Set<Timesheet>().FirstOrDefault(t => t.Hours == 4) is null)
+			if (ctx.Set<Timesheet>().FirstOrDefault(t => t.Hours == 4) is null)
 			{
-				context.Set<Timesheet>().AddRange(SampleTimesheets);
+				ctx.Set<Timesheet>().AddRange(SampleTimesheets);
 			}
 
-			context.SaveChanges();
+			ctx.SaveChanges();
 		}
 	}
 }

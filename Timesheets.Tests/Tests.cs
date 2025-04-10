@@ -3,7 +3,7 @@ using Moq;
 using Moq.EntityFrameworkCore;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
-using Timesheets.Web.Ui.Services;
+using Timesheets.Core.Services;
 
 namespace Timesheets.Tests
 {

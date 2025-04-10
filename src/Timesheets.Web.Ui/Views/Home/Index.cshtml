@@ -1,4 +1,4 @@
-﻿@using Timesheets.Web.Ui.ViewModels
+﻿@using Timesheets.Core.ViewModels
 @model IEnumerable<TimesheetViewModel>
 
 @{
@@ -13,11 +13,12 @@
     </div>
     <div class="timesheets-display__buttons">
         <a href="/Timesheet/Add">Log work</a>
+        <a href="/Home/Export">Export to CSV</a>
     </div>
     <table class="timesheets-display__table">
         <tr class="timesheets-display__row--heading">
             <th class="timesheets-display__heading timesheets-display__heading--text">
-                Name
+                User name
             </th>
             <th class="timesheets-display__heading timesheets-display__heading--date">
                 Date
@@ -26,10 +27,13 @@
                 Project
             </th>
             <th class="timesheets-display__heading timesheets-display__heading--text">
-                Memo
+                Description of tasks
             </th>
             <th class="timesheets-display__heading timesheets-display__heading--number">
-                Hours
+                Hours worked
+            </th>
+            <th class="timesheets-display__heading timesheets-display__heading--number">
+                Total hours for the day
             </th>
         </tr>
         @foreach (var timesheet in Model)
@@ -49,6 +53,9 @@
                 </td>
                 <td class="timesheets-display__cell timesheets-display__cell--number">
                     @timesheet.Hours
+                </td>
+                <td class="timesheets-display__cell timesheets-display__cell--number">
+                    @timesheet.TotalHours
                 </td>
             </tr>
         }
