@@ -8,14 +8,17 @@ namespace Timesheets.Core.Persistence
 		public static readonly Project[] SampleProjects = [
 			new()
 			{
+				Id = 0,
 				Name = "Project Alpha"
 			},
 			new()
 			{
+				Id = 1,
 				Name = "Project Beta"
 			},
 			new()
 			{
+				Id = 2,
 				Name = "Project Gamma"
 			}
 		];
@@ -23,10 +26,12 @@ namespace Timesheets.Core.Persistence
 		public static readonly Person[] SamplePersons = [
 			new()
 			{
+				Id = 0,
 				Name = "John Smith"
 			},
 			new()
 			{
+				Id = 1,
 				Name = "Jane Doe"
 			}
 		];
@@ -34,24 +39,24 @@ namespace Timesheets.Core.Persistence
 		public static readonly Timesheet[] SampleTimesheets = [
 			new()
 			{
-				PersonId = 1,
-				ProjectId = 1,
+				PersonId = 0,
+				ProjectId = 0,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
 				Hours = 4
 			},
 			new()
 			{
-				PersonId = 1,
-				ProjectId = 2,
+				PersonId = 0,
+				ProjectId = 1,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Fixed bugs in module Y",
 				Hours = 4
 			},
 			new()
 			{
-				PersonId = 2,
-				ProjectId = 3,
+				PersonId = 1,
+				ProjectId = 2,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Conducted user testing",
 				Hours = 6

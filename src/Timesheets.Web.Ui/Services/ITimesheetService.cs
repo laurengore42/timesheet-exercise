@@ -4,6 +4,6 @@ namespace Timesheets.Web.Ui.Services
 {
     public interface ITimesheetService
     {
-        public void AddTimesheet(Timesheet timesheet);
+        public bool AddTimesheet(Timesheet timesheet);
     }
 }

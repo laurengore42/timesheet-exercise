@@ -18,9 +18,9 @@ namespace Timesheets.Core.Persistence.Models
 
         public required string Memo { get; set; }
 
-        [ForeignKey("PersonId")]
+        [ForeignKey(nameof(PersonId))]
         public Person? Person { get; set; }
-        [ForeignKey("ProjectId")]
+		[ForeignKey(nameof(ProjectId))]
         public Project? Project { get; set; }
     }
 }

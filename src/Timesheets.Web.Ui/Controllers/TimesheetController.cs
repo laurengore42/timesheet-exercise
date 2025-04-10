@@ -20,9 +20,12 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(timesheet);
             }
 
-			timesheetService.AddTimesheet(timesheet);
+            if (timesheetService.AddTimesheet(timesheet))
+			{
+				return RedirectToAction("Index", "Home");
+			}
 
-            return RedirectToAction("Index", "Home");
+			return View(timesheet);
         }
     }
 }
