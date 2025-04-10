@@ -1,5 +1,4 @@
 ﻿using System;
-using Timesheets.Web.Persistence.Interfaces;
 using Timesheets.Web.Persistence.Models;
 
 namespace Timesheets.Web.Persistence.Repositories
@@ -8,7 +7,7 @@ namespace Timesheets.Web.Persistence.Repositories
 	{
 		public TimesheetRepository()
 		{
-			using var context = new TimesheetDbContext();
+			var context = new TimesheetDbContext();
 			var timesheetDtos = new List<TimesheetDto>
 				{
 					new()
@@ -45,7 +44,7 @@ namespace Timesheets.Web.Persistence.Repositories
 
 		public IEnumerable<TimesheetDto> GetTimesheets()
 		{
-			using var context = new TimesheetDbContext();
+			var context = new TimesheetDbContext();
 			return context.Timesheets;
 		}
 	}

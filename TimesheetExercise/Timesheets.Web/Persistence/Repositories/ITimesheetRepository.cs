@@ -1,6 +1,6 @@
 ﻿using Timesheets.Web.Persistence.Models;
 
-namespace Timesheets.Web.Persistence.Interfaces
+namespace Timesheets.Web.Persistence.Repositories
 {
 	public interface ITimesheetRepository
 	{
