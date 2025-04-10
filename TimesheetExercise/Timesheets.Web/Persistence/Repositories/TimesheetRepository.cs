@@ -8,7 +8,7 @@ namespace Timesheets.Web.Persistence.Repositories
 		public TimesheetRepository()
 		{
 			var context = new TimesheetDbContext();
-			var timesheetDtos = new List<TimesheetDto>
+			var sampleTimesheetDtos = new List<TimesheetDto>
 				{
 					new()
 					{
@@ -38,8 +38,12 @@ namespace Timesheets.Web.Persistence.Repositories
 						Hours = 6
 					}
 				};
-			context.Timesheets.AddRange(timesheetDtos);
-			context.SaveChanges();
+
+			if (!context.Timesheets.Any())
+			{
+				context.Timesheets.AddRange(sampleTimesheetDtos);
+				context.SaveChanges();
+			}
 		}
 
 		public IEnumerable<TimesheetDto> GetTimesheets()

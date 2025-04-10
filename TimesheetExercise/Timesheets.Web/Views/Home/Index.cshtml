@@ -1,1 +1,46 @@
-﻿Hello world!
+﻿@using Timesheets.Web.Persistence.Repositories
+@inject ITimesheetRepository timesheetRepository;
+
+@{
+    var timesheets = timesheetRepository.GetTimesheets();
+}
+
+<table>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Date
+        </th>
+        <th>
+            Project
+        </th>
+        <th>
+            Memo
+        </th>
+        <th>
+            Hours
+        </th>
+    </tr>
+    @foreach (var timesheet in timesheets)
+    {
+        <tr>
+            <td>
+                @timesheet.Name
+            </td>
+            <td>
+                @timesheet.Date.ToString("dd/MM/yyyy")
+            </td>
+            <td>
+                @timesheet.Project
+            </td>
+            <td>
+                @timesheet.Memo
+            </td>
+            <td>
+                @timesheet.Hours
+            </td>
+        </tr>
+    }
+</table>
