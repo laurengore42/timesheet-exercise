@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "http": {
+    "IIS Express": {
       "commandName": "Project",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
