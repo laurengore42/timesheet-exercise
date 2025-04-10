@@ -14,6 +14,8 @@ builder.Services.AddDbContext<TimesheetDbContext>(optionsBuilder =>
         SeedingHelper.SeedDatabase(context);
     });
 });
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IPersonService, PersonService>();
 builder.Services.AddScoped<ITimesheetService, TimesheetService>();
 
 var app = builder.Build();
