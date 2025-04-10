@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Web.Ui", "src\Timesheets.Web.Ui\Timesheets.Web.Ui.csproj", "{246EA132-352C-4CF1-90C3-BF99E6B3F237}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Web", "src\Timesheets.Web\Timesheets.Web.csproj", "{D5B1B83B-E7CF-4A67-8FA5-F43905EB7ABF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Web", "src\Timesheets.Web.Ui\Timesheets.Web.csproj", "{246EA132-352C-4CF1-90C3-BF99E6B3F237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +15,6 @@ Global
 		{246EA132-352C-4CF1-90C3-BF99E6B3F237}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{246EA132-352C-4CF1-90C3-BF99E6B3F237}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{246EA132-352C-4CF1-90C3-BF99E6B3F237}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D5B1B83B-E7CF-4A67-8FA5-F43905EB7ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D5B1B83B-E7CF-4A67-8FA5-F43905EB7ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D5B1B83B-E7CF-4A67-8FA5-F43905EB7ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D5B1B83B-E7CF-4A67-8FA5-F43905EB7ABF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

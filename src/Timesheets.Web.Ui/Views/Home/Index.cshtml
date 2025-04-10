@@ -1,10 +1,10 @@
-﻿@using Timesheets.Web.Persistence.Repositories
-@inject ITimesheetRepository timesheetRepository;
+﻿@using Timesheets.Web.Persistence;
+@inject TimesheetDbContext timesheetDbContext;
 
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 
-    var timesheets = timesheetRepository.GetTimesheets();
+    var timesheets = timesheetDbContext.Timesheets;
 }
 
 <table class="timesheets-display">
@@ -35,7 +35,7 @@
                 @timesheet.Date.ToString("dd/MM/yyyy")
             </td>
             <td class="timesheets-display__cell timesheets-display__cell--text">
-                @timesheet.Project
+                @timesheet.ProjectId
             </td>
             <td class="timesheets-display__cell timesheets-display__cell--text">
                 @timesheet.Memo
