@@ -8,17 +8,14 @@ namespace Timesheets.Core.Persistence
 		public static readonly Project[] SampleProjects = [
 			new()
 			{
-				Id = 0,
 				Name = "Project Alpha"
 			},
 			new()
 			{
-				Id = 1,
 				Name = "Project Beta"
 			},
 			new()
 			{
-				Id = 2,
 				Name = "Project Gamma"
 			}
 		];
@@ -26,12 +23,10 @@ namespace Timesheets.Core.Persistence
 		public static readonly Person[] SamplePersons = [
 			new()
 			{
-				Id = 0,
 				Name = "John Smith"
 			},
 			new()
 			{
-				Id = 1,
 				Name = "Jane Doe"
 			}
 		];
@@ -39,24 +34,24 @@ namespace Timesheets.Core.Persistence
 		public static readonly Timesheet[] SampleTimesheets = [
 			new()
 			{
-				PersonId = 0,
-				ProjectId = 0,
+				PersonId = 1,
+				ProjectId = 1,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
 				Hours = 4
 			},
 			new()
 			{
-				PersonId = 0,
-				ProjectId = 1,
+				PersonId = 1,
+				ProjectId = 2,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Fixed bugs in module Y",
 				Hours = 4
 			},
 			new()
 			{
-				PersonId = 1,
-				ProjectId = 2,
+				PersonId = 2,
+				ProjectId = 3,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Conducted user testing",
 				Hours = 6
@@ -65,20 +60,17 @@ namespace Timesheets.Core.Persistence
 
 		public static void SeedDatabase(DbContext context)
 		{
-			var testProject = context.Set<Project>().FirstOrDefault(t => t.Name == "Project Alpha");
-			if (testProject == null)
+			if (context.Set<Project>().FirstOrDefault(t => t.Name == "Project Alpha") is null)
 			{
 				context.Set<Project>().AddRange(SampleProjects);
 			}
 
-			var testPerson = context.Set<Person>().FirstOrDefault(t => t.Name == "Jane Doe");
-			if (testPerson == null)
+			if (context.Set<Person>().FirstOrDefault(t => t.Name == "John Smith") is null)
 			{
 				context.Set<Person>().AddRange(SamplePersons);
 			}
 
-			var testTimesheet = context.Set<Timesheet>().FirstOrDefault(t => t.Hours == 4);
-			if (testTimesheet == null)
+			if (context.Set<Timesheet>().FirstOrDefault(t => t.Hours == 4) is null)
 			{
 				context.Set<Timesheet>().AddRange(SampleTimesheets);
 			}

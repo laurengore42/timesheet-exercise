@@ -9,13 +9,6 @@ namespace Timesheets.Tests
 {
     public class Tests
     {
-		private static void DoDbContextSetup(Mock<TimesheetDbContext> ctxMock, Mock<DbSet<Timesheet>> timesheetsSet, Mock<DbSet<Person>> personsSet, Mock<DbSet<Project>> projectsSet)
-		{
-			ctxMock.Setup(x => x.Timesheets).ReturnsDbSet([], timesheetsSet);
-			ctxMock.Setup(x => x.Persons).ReturnsDbSet(SeedingHelper.SamplePersons, personsSet);
-			ctxMock.Setup(x => x.Projects).ReturnsDbSet(SeedingHelper.SampleProjects, projectsSet);
-		}
-
         [Fact]
         public void AddValidTimesheet()
         {
@@ -25,7 +18,7 @@ namespace Timesheets.Tests
             var timesheetsSet = new Mock<DbSet<Timesheet>>();
 			var personsSet = new Mock<DbSet<Person>>();
 			var projectsSet = new Mock<DbSet<Project>>();
-            DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
 
 			Timesheet newTimesheet = new()
 			{
@@ -58,7 +51,7 @@ namespace Timesheets.Tests
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
 			var personsSet = new Mock<DbSet<Person>>();
 			var projectsSet = new Mock<DbSet<Project>>();
-            DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
 
 			Timesheet newTimesheet = new()
 			{
@@ -91,7 +84,7 @@ namespace Timesheets.Tests
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
 			var personsSet = new Mock<DbSet<Person>>();
 			var projectsSet = new Mock<DbSet<Project>>();
-            DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
 
 			Timesheet newTimesheet = new()
 			{
