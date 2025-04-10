@@ -1,15 +1,22 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Timesheets.Core.Persistence.Models
 {
+	[PrimaryKey(nameof(Id))]
 	public class Timesheet
 	{
 		public Guid Id { get; set; }
-		public Guid PersonId { get; set; }
-		public DateOnly Date { get; set; }
-		public Guid ProjectId { get; set; }
-		public string Memo { get; set; } = string.Empty;
-		public decimal Hours { get; set; }
+
+		public required Guid PersonId { get; set; }
+
+		public required DateOnly Date { get; set; }
+
+		public required Guid ProjectId { get; set; }
+
+		public required decimal Hours { get; set; }
+
+		public required string Memo { get; set; }
 
 		[ForeignKey("PersonId")]
 		public Person? Person { get; set; }

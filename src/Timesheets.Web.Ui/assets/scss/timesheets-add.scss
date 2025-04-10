@@ -1,4 +1,4 @@
-.timesheets-display {
+.timesheets-add {
   background-color: white;
 	color: rgba(0,0,0,0.8);
   font-family: Arial, Helvetica, sans-serif;
@@ -25,29 +25,37 @@
     }
   }
 
-  &__table {
+  &__form {
+    padding: 2rem;
     background-color: white;
     border: 1px solid rgba(0,0,0,0.8);
 
-    tr:nth-child(even) {
-      background-color: rgba(0,0,0,0.025);
+    &-input {
+      display: flex;
+      flex-direction: row;
+      padding: 0.5rem 0;
+      align-items: center;
     }
 
-    tr:nth-child(odd) {
+    &-label {
+      flex-basis: 100px;
+    }
+
+    button {
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border: 1px solid rgba(0,0,0,0.8);
+      border-radius: 3px;
+      font-size: large;
+      font-family: Arial, Helvetica, sans-serif;
+      text-decoration: none;
       background-color: rgba(0,0,0,0.05);
-    }
-  }
+      color: rgba(0,0,0,0.8);
+      transition: background-color 0.1s ease-out;
 
-  &__heading {
-    padding: 0.75rem;
-    border-bottom: 1px solid rgba(0,0,0,0.8);
-  }
-
-  &__cell {
-    padding: 0.5rem 1rem;
-
-    &--date, &--number {
-      font-weight: bolder;
+      &:hover {
+        background-color: rgba(110, 173, 214, 0.479);
+      }
     }
   }
 }
