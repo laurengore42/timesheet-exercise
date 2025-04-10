@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.13.35931.197
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Web", "src\Timesheets.Web.Ui\Timesheets.Web.csproj", "{246EA132-352C-4CF1-90C3-BF99E6B3F237}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Web.Ui", "src\Timesheets.Web.Ui\Timesheets.Web.Ui.csproj", "{246EA132-352C-4CF1-90C3-BF99E6B3F237}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
