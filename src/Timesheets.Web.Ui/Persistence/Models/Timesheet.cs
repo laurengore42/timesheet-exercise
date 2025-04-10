@@ -5,7 +5,9 @@ namespace Timesheets.Web.Persistence.Models
 	public class Timesheet
 	{
 		public Guid Id { get; set; }
-		public string Name { get; set; } = string.Empty;
+		public Guid PersonId { get; set; }
+		[ForeignKey("PersonId")]
+		public Person? Person { get; set; }
 		public DateOnly Date { get; set; }
 		public Guid ProjectId { get; set; }
 		[ForeignKey("ProjectId")]

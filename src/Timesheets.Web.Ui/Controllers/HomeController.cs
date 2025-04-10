@@ -10,6 +10,7 @@ namespace Timesheets.Web.Controllers
 		public async Task<IActionResult> IndexAsync()
 		{
 			var viewModel = (await ctx.Timesheets
+				.Include(t => t.Person)
 				.Include(t => t.Project)
 				.ToListAsync())
 				.Select(t => new TimesheetViewModel(t));
