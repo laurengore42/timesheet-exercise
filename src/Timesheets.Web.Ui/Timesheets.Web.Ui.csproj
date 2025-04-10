@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Timesheets.Web\Timesheets.Core.csproj" />
+    <ProjectReference Include="..\Timesheets.Core\Timesheets.Core.csproj" />
   </ItemGroup>
 
 </Project>
