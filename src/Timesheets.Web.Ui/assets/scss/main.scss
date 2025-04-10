@@ -1,0 +1,10 @@
+.timesheets-display {
+	background-color: darkcyan;
+	color: white;
+
+  &__cell {
+    &--date, &--number {
+      font-weight: bold;
+    }
+  }
+}

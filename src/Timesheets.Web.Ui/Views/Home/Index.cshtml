@@ -2,43 +2,45 @@
 @inject ITimesheetRepository timesheetRepository;
 
 @{
+    Layout = "/Views/Shared/_Layout.cshtml";
+
     var timesheets = timesheetRepository.GetTimesheets();
 }
 
-<table>
+<table class="timesheets-display">
     <tr>
-        <th>
+        <th class="timesheets-display__heading--text">
             Name
         </th>
-        <th>
+        <th class="timesheets-display__heading--date">
             Date
         </th>
-        <th>
+        <th class="timesheets-display__heading--text">
             Project
         </th>
-        <th>
+        <th class="timesheets-display__heading--text">
             Memo
         </th>
-        <th>
+        <th class="timesheets-display__heading--number">
             Hours
         </th>
     </tr>
     @foreach (var timesheet in timesheets)
     {
         <tr>
-            <td>
+            <td class="timesheets-display__heading--text">
                 @timesheet.Name
             </td>
-            <td>
+            <td class="timesheets-display__heading--date">
                 @timesheet.Date.ToString("dd/MM/yyyy")
             </td>
-            <td>
+            <td class="timesheets-display__heading--text">
                 @timesheet.Project
             </td>
-            <td>
+            <td class="timesheets-display__heading--text">
                 @timesheet.Memo
             </td>
-            <td>
+            <td class="timesheets-display__heading--number">
                 @timesheet.Hours
             </td>
         </tr>

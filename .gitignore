@@ -54,3 +54,5 @@ CodeCoverage/
 TestResult.xml
 nunit-*.xml
 /src/Timesheets.Web.Ui/Timesheets.Web.Ui.csproj.user
+/src/Timesheets.Web.Ui/node_modules
+/src/Timesheets.Web.Ui/wwwroot/css
