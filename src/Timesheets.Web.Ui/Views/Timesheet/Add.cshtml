@@ -1,8 +1,14 @@
-﻿@using Timesheets.Web.Ui.ViewModels
-@model AddTimesheetViewModel
+﻿@using Timesheets.Core.Persistence
+@using Timesheets.Core.Persistence.Models
+@using Timesheets.Web.Ui.ViewModels
+@model Timesheet
+@inject TimesheetDbContext ctx;
 
 @{
     Layout = "_Layout";
+
+    List<Person> Persons = [.. ctx.Persons];
+    List<Project> Projects = [.. ctx.Projects];
 }
 
 <div class="timesheets-add">
@@ -21,11 +27,11 @@
 
             <div class="timesheets-add__form-input">
                 <label class="timesheets-add__form-label" for="person">Person</label>
-                <select id="person" name="person">
+                <select id="person" name="personId">
                     <option>Choose a person...</option>
-                    @foreach (var person in Model.Persons)
+                    @foreach (var person in Persons)
                     {
-                        <option value="@person.Id">@person.Name</option>
+                        <option value=@person.Id>@person.Name</option>
                     }
                 </select>
             </div>
@@ -35,11 +41,11 @@
             </div>
             <div class="timesheets-add__form-input">
                 <label class="timesheets-add__form-label" for="project">Projects</label>
-                <select id="project" name="project">
+                <select id="project" name="projectId">
                     <option>Choose a project...</option>
-                    @foreach (var project in Model.Projects)
+                    @foreach (var project in Projects)
                     {
-                        <option value="@project.Id">@project.Name</option>
+                        <option value=@project.Id>@project.Name</option>
                     }
                 </select>
             </div>

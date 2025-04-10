@@ -9,42 +9,21 @@ namespace Timesheets.Web.Ui.Controllers
 	{
 		public IActionResult Add()
 		{
-			var viewModel = new AddTimesheetViewModel
-			{
-				Persons = [.. ctx.Persons],
-				Projects = [.. ctx.Projects]
-			};
-			return View("Add", viewModel);
+			return View("Add");
 		}
 
 		[HttpPost]
-		public IActionResult Add(string person, DateTime date, string project, decimal hours, string? memo = null)
+		public IActionResult Add(Timesheet timesheet)
 		{
-			var viewModel = new AddTimesheetViewModel
-			{
-				Persons = [.. ctx.Persons],
-				Projects = [.. ctx.Projects]
-			};
-
 			if (!ModelState.IsValid)
 			{
-				return View("Add", viewModel);
+				return View("Add");
 			}
 
-			var newTimesheet = new Timesheet
-			{
-				Id = Guid.NewGuid(),
-				PersonId = new Guid(person),
-				Date = new DateOnly(date.Year, date.Month, date.Day),
-				ProjectId = new Guid(project),
-				Memo = memo ?? string.Empty,
-				Hours = hours
-			};
-
-			ctx.Timesheets.Add(newTimesheet);
+			ctx.Timesheets.Add(timesheet);
 			ctx.SaveChanges();
 
-			return View("Add", viewModel);
+			return View("Add");
 		}
 	}
 }

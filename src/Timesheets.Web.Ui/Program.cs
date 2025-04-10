@@ -7,6 +7,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TimesheetDbContext>(optionsBuilder =>
 {
 	optionsBuilder.UseInMemoryDatabase(databaseName: "Timesheets");
+	optionsBuilder.EnableSensitiveDataLogging();
 	optionsBuilder.UseSeeding((context, _) =>
 	{
 		SeedingHelper.SeedDatabase(context);
