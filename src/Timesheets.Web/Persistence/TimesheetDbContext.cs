@@ -7,5 +7,6 @@ namespace Timesheets.Core.Persistence
 	{
 		public DbSet<Timesheet> Timesheets { get; set; }
 		public DbSet<Project> Projects { get; set; }
+		public DbSet<Person> Persons { get; set; }
 	}
 }

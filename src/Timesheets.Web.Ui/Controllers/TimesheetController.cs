@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
+using Timesheets.Web.Ui.ViewModels;
 
 namespace Timesheets.Web.Ui.Controllers
 {
@@ -8,18 +9,23 @@ namespace Timesheets.Web.Ui.Controllers
 	{
 		public IActionResult Add()
 		{
-			return View("Add", "Add your timesheet entry below");
+			var viewModel = new AddTimesheetViewModel
+			{
+				Persons = [.. ctx.Persons],
+				Projects = [.. ctx.Projects]
+			};
+			return View("Add", viewModel);
 		}
 
 		[HttpPost]
-		public IActionResult Add(decimal hours, string memo, DateTime date)
+		public IActionResult Add(string person, DateTime date, string project, string memo, decimal hours)
 		{
 			var newTimesheet = new Timesheet
 			{
 				Id = Guid.NewGuid(),
-				PersonId = new Guid("d9239d95-b0a2-4577-baf6-a6abdaa8a304"),
+				PersonId = new Guid(person),
 				Date = new DateOnly(date.Year, date.Month, date.Day),
-				ProjectId = new Guid("230bda5e-3004-4690-bd4d-1127e4f3e994"),
+				ProjectId = new Guid(project),
 				Memo = memo,
 				Hours = hours
 			};
@@ -27,7 +33,13 @@ namespace Timesheets.Web.Ui.Controllers
 			ctx.Timesheets.Add(newTimesheet);
 			ctx.SaveChanges();
 
-			return View("Add", "Success");
+			var viewModel = new AddTimesheetViewModel
+			{
+				Persons = [.. ctx.Persons],
+				Projects = [.. ctx.Projects]
+			};
+
+			return View("Add", viewModel);
 		}
 	}
 }

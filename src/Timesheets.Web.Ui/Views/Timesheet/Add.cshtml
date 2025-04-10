@@ -1,11 +1,14 @@
-﻿@model string
+﻿@using Timesheets.Web.Ui.ViewModels
+@model AddTimesheetViewModel
 
 @{
     Layout = "/Views/Shared/_Layout.cshtml";
 }
 
 <div class="timesheets-form__message">
-    @Model
+    <h1>
+        Add your timesheet entry below
+    </h1>
 </div>
 
 <div class="timesheets-form">
@@ -22,6 +25,26 @@
         <div class="timesheets-form__input">
             <label for="date">Date</label>
             <input id="date" name="date" type="date" />
+        </div>
+        <div class="timesheets-form__input">
+            <label for="person">Person</label>
+            <select id="person" name="person">
+                <option>Choose a person...</option>
+                @foreach (var person in Model.Persons)
+                {
+                    <option value="@person.Id">@person.Name</option>
+                }
+            </select>
+        </div>
+        <div class="timesheets-form__input">
+            <label for="project">Projects</label>
+            <select id="project" name="project">
+                <option>Choose a project...</option>
+                @foreach (var project in Model.Projects)
+                {
+                    <option value="@project.Id">@project.Name</option>
+                }
+            </select>
         </div>
         <button type="submit">Add</button>
     }
