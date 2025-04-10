@@ -28,19 +28,19 @@
     @foreach (var timesheet in timesheets)
     {
         <tr>
-            <td class="timesheets-display__heading--text">
+            <td class="timesheets-display__cell--text">
                 @timesheet.Name
             </td>
-            <td class="timesheets-display__heading--date">
+            <td class="timesheets-display__cell--date">
                 @timesheet.Date.ToString("dd/MM/yyyy")
             </td>
-            <td class="timesheets-display__heading--text">
+            <td class="timesheets-display__cell--text">
                 @timesheet.Project
             </td>
-            <td class="timesheets-display__heading--text">
+            <td class="timesheets-display__cell--text">
                 @timesheet.Memo
             </td>
-            <td class="timesheets-display__heading--number">
+            <td class="timesheets-display__cell--number">
                 @timesheet.Hours
             </td>
         </tr>
