@@ -6,12 +6,12 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<TimesheetDbContext>(optionsBuilder =>
 {
-	optionsBuilder.UseInMemoryDatabase(databaseName: "Timesheets");
-	optionsBuilder.EnableSensitiveDataLogging();
-	optionsBuilder.UseSeeding((context, _) =>
-	{
-		SeedingHelper.SeedDatabase(context);
-	});
+    optionsBuilder.UseInMemoryDatabase(databaseName: "Timesheets");
+    optionsBuilder.EnableSensitiveDataLogging();
+    optionsBuilder.UseSeeding((context, _) =>
+    {
+        SeedingHelper.SeedDatabase(context);
+    });
 });
 
 var app = builder.Build();
@@ -25,7 +25,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.MapControllerRoute(
-	name: "default",
-	pattern: "{controller=Home}/{action=Index}/{id?}");
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
