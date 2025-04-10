@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Timesheets.Core.Persistence;
+using Timesheets.Web.Ui.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +14,7 @@ builder.Services.AddDbContext<TimesheetDbContext>(optionsBuilder =>
         SeedingHelper.SeedDatabase(context);
     });
 });
+builder.Services.AddScoped<ITimesheetService, TimesheetService>();
 
 var app = builder.Build();
 

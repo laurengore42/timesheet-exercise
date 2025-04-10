@@ -3,10 +3,13 @@ using Timesheets.Core.Persistence.Models;
 
 namespace Timesheets.Core.Persistence
 {
-    public class TimesheetDbContext(DbContextOptions<TimesheetDbContext> options) : DbContext(options)
-    {
-        public DbSet<Timesheet> Timesheets { get; set; }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Person> Persons { get; set; }
+    public class TimesheetDbContext : DbContext
+	{
+        public TimesheetDbContext() { }
+		public TimesheetDbContext(DbContextOptions<TimesheetDbContext> options) : base(options) { }
+
+		public virtual DbSet<Timesheet>? Timesheets { get; set; }
+        public virtual DbSet<Project>? Projects { get; set; }
+        public virtual DbSet<Person>? Persons { get; set; }
     }
 }

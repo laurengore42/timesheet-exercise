@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
+using Timesheets.Web.Ui.Services;
 
 namespace Timesheets.Web.Ui.Controllers
 {
-    public class TimesheetController(TimesheetDbContext ctx) : Controller
+    public class TimesheetController(ITimesheetService timesheetService) : Controller
     {
         public IActionResult Add()
         {
@@ -19,8 +20,7 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(timesheet);
             }
 
-            ctx.Timesheets.Add(timesheet);
-            ctx.SaveChanges();
+			timesheetService.AddTimesheet(timesheet);
 
             return RedirectToAction("Index", "Home");
         }

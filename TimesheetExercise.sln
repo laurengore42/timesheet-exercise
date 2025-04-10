@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Web.Ui", "src\Ti
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Core", "src\Timesheets.Core\Timesheets.Core.csproj", "{3A2BDE44-031B-2977-93FB-9FCCB00B0043}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Timesheets.Tests", "Timesheets.Tests\Timesheets.Tests.csproj", "{04B236CB-6C7D-4CE3-80E1-EFF815A1AA93}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{3A2BDE44-031B-2977-93FB-9FCCB00B0043}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3A2BDE44-031B-2977-93FB-9FCCB00B0043}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3A2BDE44-031B-2977-93FB-9FCCB00B0043}.Release|Any CPU.Build.0 = Release|Any CPU
+		{04B236CB-6C7D-4CE3-80E1-EFF815A1AA93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{04B236CB-6C7D-4CE3-80E1-EFF815A1AA93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{04B236CB-6C7D-4CE3-80E1-EFF815A1AA93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{04B236CB-6C7D-4CE3-80E1-EFF815A1AA93}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
