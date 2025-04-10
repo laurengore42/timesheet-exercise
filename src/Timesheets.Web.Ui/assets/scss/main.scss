@@ -1,21 +1,2 @@
-.timesheets-display {
-	background-color: darkcyan;
-	color: white;
-  font-family: monospace;
-
-  &__row--heading {
-    border-bottom: 1px solid white;
-  }
-
-  &__heading {
-    padding-bottom: 0.75rem;
-  }
-
-  &__cell {
-    padding: 0.5rem 1rem;
-
-    &--date, &--number {
-      font-weight: bolder;
-    }
-  }
-}
+@use 'timesheets-display';
+@use 'timesheets-form';

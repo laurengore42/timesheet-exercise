@@ -2,15 +2,14 @@
 @model IEnumerable<TimesheetViewModel>
 
 @{
-    Layout = "/Views/Shared/_Layout.cshtml";
+    Layout = "_Layout";
 }
 
-<div>
-    <a href="/Timesheet/Add">Log work</a>
-</div>
-
-<div>
-    <table class="timesheets-display">
+<div class="timesheets-display">
+    <div class="timesheets-display__buttons">
+        <a href="/Timesheet/Add">Log work</a>
+    </div>
+    <table class="timesheets-display__table">
         <tr class="timesheets-display__row--heading">
             <th class="timesheets-display__heading timesheets-display__heading--text">
                 Name
