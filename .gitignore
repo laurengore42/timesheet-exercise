@@ -53,3 +53,4 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+/src/Timesheets.Web.Ui/Timesheets.Web.Ui.csproj.user
