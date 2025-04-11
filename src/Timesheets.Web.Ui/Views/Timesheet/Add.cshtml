@@ -33,7 +33,7 @@
                     <option value="">Choose a user...</option>
                     @foreach (var user in Users)
                     {
-                        <option value=@user.Id>@user.Name</option>
+                        <option value=@user.Id>#@user.Id @user.Name</option>
                     }
                 </select>
             </div>
