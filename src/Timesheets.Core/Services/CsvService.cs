@@ -20,7 +20,7 @@ namespace Timesheets.Core.Services
 
             var records = timesheetService.FetchAllTimesheets();
 
-            using (TextWriter writer = new StreamWriter(@"assets\export.csv", false))
+            using (TextWriter writer = new StreamWriter(@"wwwroot\export.csv", false))
             {
                 var csv = new CsvWriter(writer, CultureInfo.CurrentCulture);
                 csv.WriteRecords(records);
