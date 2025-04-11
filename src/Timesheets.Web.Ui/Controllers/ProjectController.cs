@@ -19,14 +19,14 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(project);
             }
 
-			// TO DO handle a No here
-			// TO DO display validation for modelstate invalid?
 			if (projectService.AddProject(project))
 			{
 				return RedirectToAction("Add", "Timesheet");
-			}
-
-			return View(project);
+            }
+            else
+            {
+                throw new InvalidOperationException("Failed to save project");
+            }
         }
     }
 }

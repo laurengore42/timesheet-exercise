@@ -19,14 +19,14 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(person);
             }
 
-			// TO DO handle a No here
-			// TO DO display validation for modelstate invalid?
 			if (personService.AddPerson(person))
 			{
 				return RedirectToAction("Add", "Timesheet");
-			}
-
-			return View(person);
+            }
+            else
+            {
+                throw new InvalidOperationException("Failed to save user");
+            }
         }
     }
 }

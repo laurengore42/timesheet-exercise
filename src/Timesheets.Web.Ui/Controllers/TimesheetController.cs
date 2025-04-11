@@ -19,14 +19,14 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(timesheet);
             }
 
-            // TO DO handle a No here
-            // TO DO display validation for modelstate invalid?
             if (timesheetService.AddTimesheet(timesheet))
-			{
-				return RedirectToAction("Index", "Home");
-			}
-
-			return View(timesheet);
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                throw new InvalidOperationException("Failed to save timesheet");
+            }
         }
     }
 }
