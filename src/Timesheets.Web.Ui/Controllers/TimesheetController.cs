@@ -21,7 +21,6 @@ namespace Timesheets.Web.Ui.Controllers
 
             // TO DO handle a No here
             // TO DO display validation for modelstate invalid?
-            // TO DO CSV export
             if (timesheetService.AddTimesheet(timesheet))
 			{
 				return RedirectToAction("Index", "Home");
