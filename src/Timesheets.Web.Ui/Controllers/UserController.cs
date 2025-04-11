@@ -20,13 +20,15 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(user);
             }
 
-			if (userService.AddUser(user))
+            var resp = userService.AddUser(user);
+
+			if (resp.Success)
 			{
 				return RedirectToAction("Add", "Timesheet");
             }
             else
             {
-                ViewBag.Error = "Failed to save user";
+                ViewBag.Error = resp.Message;
                 return View(user);
             }
         }
@@ -42,19 +44,16 @@ namespace Timesheets.Web.Ui.Controllers
             var user = ctx.Users.Find(userId)
                 ?? throw new ArgumentOutOfRangeException(nameof(userId));
 
-            if (ctx.Timesheets.Any(t => t.UserId == userId))
-            {
-                ViewBag.Error = "Cannot delete a user with existing timesheet rows";
-                return View();
-            }
+            var resp = userService.DeleteUser(user);
 
-            if (userService.DeleteUser(user))
+            if (resp.Success)
             {
                 return RedirectToAction("Add", "Timesheet");
             }
             else
             {
-                throw new InvalidOperationException("Failed to delete user");
+                ViewBag.Error = resp.Message;
+                return View(user);
             }
         }
     }

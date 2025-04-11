@@ -72,13 +72,19 @@ namespace Timesheets.Tests
             }
         ];
 
-        public static void SetupDbContext(Mock<TimesheetDbContext> ctxMock, Mock<DbSet<Timesheet>>? timesheetsSet = null)
+        public static void SetupDbContext(
+            Mock<TimesheetDbContext> ctxMock,
+            Mock<DbSet<Timesheet>>? timesheetsSet = null,
+            Mock<DbSet<Project>>? projectsSet = null,
+            Mock<DbSet<User>>? usersSet = null)
         {
             timesheetsSet ??= new Mock<DbSet<Timesheet>>();
+            projectsSet ??= new Mock<DbSet<Project>>();
+            usersSet ??= new Mock<DbSet<User>>();
 
             ctxMock.Setup(x => x.Timesheets).ReturnsDbSet(SampleTimesheets, timesheetsSet);
-			ctxMock.Setup(x => x.Users).ReturnsDbSet(SampleUsers);
-			ctxMock.Setup(x => x.Projects).ReturnsDbSet(SampleProjects);
-		}
+			ctxMock.Setup(x => x.Projects).ReturnsDbSet(SampleProjects, projectsSet);
+            ctxMock.Setup(x => x.Users).ReturnsDbSet(SampleUsers, usersSet);
+        }
 	}
 }

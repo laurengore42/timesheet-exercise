@@ -4,7 +4,7 @@ namespace Timesheets.Core.Services
 {
     public interface IProjectService
 	{
-		public bool AddProject(Project project);
-        public bool DeleteProject(Project project);
+		public ServiceResponse AddProject(Project project);
+        public ServiceResponse DeleteProject(Project project);
     }
 }

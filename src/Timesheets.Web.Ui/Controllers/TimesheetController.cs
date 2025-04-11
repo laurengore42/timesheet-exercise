@@ -20,13 +20,15 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(timesheet);
             }
 
-            if (timesheetService.AddTimesheet(timesheet))
+            var resp = timesheetService.AddTimesheet(timesheet);
+
+            if (resp.Success)
             {
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ViewBag.Error = "Failed to save timesheet";
+                ViewBag.Error = resp.Message;
                 return View(timesheet);
             }
         }
@@ -36,13 +38,15 @@ namespace Timesheets.Web.Ui.Controllers
             var timesheet = ctx.Timesheets.Find(timesheetId)
                 ?? throw new ArgumentOutOfRangeException(nameof(timesheetId));
 
-            if (timesheetService.DeleteTimesheet(timesheet))
+            var resp = timesheetService.DeleteTimesheet(timesheet);
+
+            if (resp.Success)
             {
                 return RedirectToAction("Index", "Home");
             }
             else
             {
-                ViewBag.Error = "Failed to delete timesheet";
+                ViewBag.Error = resp.Message;
                 return RedirectToAction("Index", "Home");
             }
         }

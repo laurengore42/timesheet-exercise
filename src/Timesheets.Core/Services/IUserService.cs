@@ -4,7 +4,7 @@ namespace Timesheets.Core.Services
 {
     public interface IUserService
 	{
-		public bool AddUser(User user);
-        public bool DeleteUser(User user);
+		public ServiceResponse AddUser(User user);
+        public ServiceResponse DeleteUser(User user);
     }
 }

@@ -5,20 +5,35 @@ namespace Timesheets.Core.Services
 {
     public class ProjectService(TimesheetDbContext ctx) : IProjectService
 	{
-		public bool AddProject(Project project)
+		public ServiceResponse AddProject(Project project)
 		{
 			ctx.Projects.Add(project);
 			ctx.SaveChanges();
 
-			return true;
+            return new ServiceResponse()
+            {
+                Success = true
+            };
         }
 
-        public bool DeleteProject(Project project)
+        public ServiceResponse DeleteProject(Project project)
         {
+            if (ctx.Timesheets.Any(t => t.ProjectId == project.Id))
+            {
+                return new ServiceResponse()
+                {
+                    Success = false,
+                    Message = "Cannot delete a project with existing timesheet rows"
+                };
+            }
+
             ctx.Projects.Remove(project);
             ctx.SaveChanges();
 
-            return true;
+            return new ServiceResponse()
+            {
+                Success = true
+            };
         }
     }
 }

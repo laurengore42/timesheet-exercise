@@ -20,13 +20,15 @@ namespace Timesheets.Web.Ui.Controllers
                 return View(project);
             }
 
-			if (projectService.AddProject(project))
+            var resp = projectService.AddProject(project);
+
+			if (resp.Success)
 			{
 				return RedirectToAction("Add", "Timesheet");
             }
             else
             {
-                ViewBag.Error = "Failed to save project";
+                ViewBag.Error = resp.Message;
                 return View(project);
             }
         }
@@ -42,19 +44,15 @@ namespace Timesheets.Web.Ui.Controllers
             var project = ctx.Projects.Find(projectId)
                 ?? throw new ArgumentOutOfRangeException(nameof(projectId));
 
-            if (ctx.Timesheets.Any(t => t.ProjectId == projectId))
-            {
-                ViewBag.Error = "Cannot delete a project with existing timesheet rows";
-                return View();
-            }
+            var resp = projectService.DeleteProject(project);
 
-            if (projectService.DeleteProject(project))
+            if (resp.Success)
             {
                 return RedirectToAction("Add", "Timesheet");
             }
             else
             {
-                throw new InvalidOperationException("Failed to delete project");
+                throw new InvalidOperationException(resp.Message);
             }
         }
     }

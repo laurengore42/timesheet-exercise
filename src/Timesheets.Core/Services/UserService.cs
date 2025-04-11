@@ -5,20 +5,35 @@ namespace Timesheets.Core.Services
 {
     public class UserService(TimesheetDbContext ctx) : IUserService
 	{
-		public bool AddUser(User user)
+		public ServiceResponse AddUser(User user)
 		{
 			ctx.Users.Add(user);
 			ctx.SaveChanges();
 
-			return true;
+            return new ServiceResponse()
+            {
+                Success = true
+            };
         }
 
-        public bool DeleteUser(User user)
+        public ServiceResponse DeleteUser(User user)
         {
+            if (ctx.Timesheets.Any(t => t.UserId == user.Id))
+            {
+                return new ServiceResponse()
+                {
+                    Success = false,
+                    Message = "Cannot delete a user with existing timesheet rows"
+                };
+            }
+
             ctx.Users.Remove(user);
             ctx.SaveChanges();
 
-            return true;
+            return new ServiceResponse()
+            {
+                Success = true
+            };
         }
     }
 }

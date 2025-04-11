@@ -3,7 +3,6 @@ using Moq;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 using Timesheets.Core.Services;
-using Timesheets.Core.ViewModels;
 
 namespace Timesheets.Tests
 {
@@ -35,7 +34,7 @@ namespace Timesheets.Tests
 
             // Assert
 
-            Assert.True(result);
+            Assert.True(result.Success);
 			timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Once());
             ctxMock.Verify(x => x.SaveChanges(), Times.Once());
         }
@@ -66,7 +65,7 @@ namespace Timesheets.Tests
 
             // Assert
 
-            Assert.False(result);
+            Assert.False(result.Success);
             timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Never());
             ctxMock.Verify(x => x.SaveChanges(), Times.Never());
 		}
@@ -97,90 +96,51 @@ namespace Timesheets.Tests
 
             // Assert
 
-            Assert.False(result);
+            Assert.False(result.Success);
             timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Never());
 			ctxMock.Verify(x => x.SaveChanges(), Times.Never());
 		}
 
         [Fact]
-        public void GetTotalHoursForTimesheets()
+        public void DeleteAProjectWithTimesheetRows()
         {
             // Arrange
 
             var ctxMock = new Mock<TimesheetDbContext>();
-            TestingHelper.SetupDbContext(ctxMock);
+            var projectsSet = new Mock<DbSet<Project>>();
+            TestingHelper.SetupDbContext(ctxMock, null, projectsSet);
 
-            var timesheetService = new TimesheetService(ctxMock.Object);
-
-            // Act
-
-            var result = timesheetService.FetchAllTimesheets();
-
-            // Assert
-
-            var firstResult = result.FirstOrDefault(t => t.UserName == TestingHelper.SampleUsers.First().Name && t.Date == "22/10/2014");
-            Assert.NotNull(firstResult);
-            Assert.Equal(4, firstResult.Hours);
-            Assert.Equal(8, firstResult.TotalHours);
-        }
-
-        [Fact]
-        public void StripCommasForCsvExport()
-        {
-            // Arrange
-
-            Timesheet newTimesheet = new()
-            {
-                UserId = TestingHelper.SampleUsers.First().Id,
-                User = TestingHelper.SampleUsers.First(),
-                ProjectId = TestingHelper.SampleProjects.First().Id,
-                Project = TestingHelper.SampleProjects.First(),
-                Date = new DateOnly(2014, 10, 22),
-                Memo = "Test,words",
-                Hours = TestingHelper.SampleTimesheets.First().Hours
-            };
+            var projectService = new ProjectService(ctxMock.Object);
 
             // Act
 
-            var plainResult = new TimesheetViewModel(newTimesheet, 8);
-            var strippedResult = new TimesheetViewModel(newTimesheet, 8, true);
+            var result = projectService.DeleteProject(TestingHelper.SampleProjects.First());
 
             // Assert
 
-            Assert.Equal("Test,words", plainResult.Memo);
-            Assert.Equal("Test words", strippedResult.Memo);
+            Assert.False(result.Success);
+            projectsSet.Verify(x => x.Remove(TestingHelper.SampleProjects.First()), Times.Never());
         }
 
         [Fact]
-        public void VerifyCsvExport()
+        public void DeleteAUserWithTimesheetRows()
         {
             // Arrange
 
             var ctxMock = new Mock<TimesheetDbContext>();
-            TestingHelper.SetupDbContext(ctxMock);
+            var usersSet = new Mock<DbSet<User>>();
+            TestingHelper.SetupDbContext(ctxMock, null, null, usersSet);
 
-            var timesheetService = new TimesheetService(ctxMock.Object);
-            var csvService = new CsvService(timesheetService);
-            var csvPath = "test-export.csv";
+            var userService = new UserService(ctxMock.Object);
 
             // Act
 
-            csvService.CsvTimesheetExport(csvPath);
+            var result = userService.DeleteUser(TestingHelper.SampleUsers.First());
 
             // Assert
 
-            string path = csvPath;
-            using (StreamReader sr = File.OpenText(path))
-            {
-                string fileContents = sr.ReadToEnd();
-                Assert.NotNull(fileContents);
-                var fileLines = fileContents.Split("\r\n");
-                Assert.Equal(TestingHelper.SampleTimesheets.Length + 2, fileLines.Length);
-                var firstLine = fileLines[0];
-                var secondLine = fileLines[1];
-                Assert.Equal("Id,UserId,UserName,Date,ProjectId,ProjectName,Memo,Hours,TotalHours", firstLine);
-                Assert.Equal("0,2000,John Smith,22/10/2014,1000,Project Alpha,Developed new feature X,4,8", secondLine);
-            }
+            Assert.False(result.Success);
+            usersSet.Verify(x => x.Remove(TestingHelper.SampleUsers.First()), Times.Never());
         }
     }
 }

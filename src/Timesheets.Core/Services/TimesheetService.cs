@@ -7,29 +7,43 @@ namespace Timesheets.Core.Services
 {
     public class TimesheetService(TimesheetDbContext ctx) : ITimesheetService
     {
-		public bool AddTimesheet(Timesheet timesheet)
+		public ServiceResponse AddTimesheet(Timesheet timesheet)
 		{
 			if (ctx.Users.FirstOrDefault(p => p.Id == timesheet.UserId) is null)
 			{
-				return false;
-			}
+                return new ServiceResponse()
+                {
+                    Success = false,
+                    Message = "User not found"
+                };
+            }
 
 			if (ctx.Projects.FirstOrDefault(p => p.Id == timesheet.ProjectId) is null)
-			{
-				return false;
+            {
+                return new ServiceResponse()
+                {
+                    Success = false,
+                    Message = "Project not found"
+                };
 			}
 
 			ctx.Timesheets.Add(timesheet);
 			ctx.SaveChanges();
 
-			return true;
+            return new ServiceResponse()
+            {
+                Success = true
+            };
         }
-        public bool DeleteTimesheet(Timesheet timesheet)
+        public ServiceResponse DeleteTimesheet(Timesheet timesheet)
         {
             ctx.Timesheets.Remove(timesheet);
             ctx.SaveChanges();
 
-            return true;
+            return new ServiceResponse()
+            {
+                Success = true
+            };
         }
 
         public IEnumerable<TimesheetViewModel> FetchAllTimesheets(bool stripCommas = false)
