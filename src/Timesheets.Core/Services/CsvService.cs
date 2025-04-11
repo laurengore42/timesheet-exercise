@@ -8,11 +8,6 @@ namespace Timesheets.Core.Services
 	{
         public void CsvTimesheetExport()
 		{
-			if (ctx.Timesheets is null)
-			{
-				throw new InvalidOperationException("Could not access database tables");
-            }
-
             var records = timesheetService.FetchAllTimesheets(true);
 
             using (TextWriter writer = new StreamWriter(@"wwwroot\export.csv", false))

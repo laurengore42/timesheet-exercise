@@ -7,11 +7,6 @@ namespace Timesheets.Core.Services
 	{
 		public bool AddProject(Project project)
 		{
-			if (ctx.Projects is null)
-			{
-				throw new InvalidOperationException("Could not access database tables");
-			}
-
 			ctx.Projects.Add(project);
 			ctx.SaveChanges();
 

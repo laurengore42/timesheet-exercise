@@ -9,11 +9,6 @@ namespace Timesheets.Core.Services
     {
 		public bool AddTimesheet(Timesheet timesheet)
 		{
-			if (ctx.Timesheets is null || ctx.Users is null || ctx.Projects is null)
-			{
-				throw new InvalidOperationException("Could not access database tables");
-			}
-
 			if (ctx.Users.FirstOrDefault(p => p.Id == timesheet.UserId) is null)
 			{
 				return false;
@@ -32,11 +27,6 @@ namespace Timesheets.Core.Services
 
         public IEnumerable<TimesheetViewModel> FetchAllTimesheets(bool stripCommas = false)
         {
-            if (ctx.Timesheets is null)
-            {
-                throw new InvalidOperationException("Could not access database tables");
-            }
-
             var hoursPerUserPerDay = Enumerable.ToList(Queryable.Select(Queryable.GroupBy(ctx.Timesheets, t => new { t.UserId, t.Date }), group => new { group.Key, HourSum = Enumerable.Sum(group, g => g.Hours) }));
 
             return ctx.Timesheets

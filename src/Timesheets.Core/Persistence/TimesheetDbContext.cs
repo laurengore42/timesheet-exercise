@@ -8,8 +8,8 @@ namespace Timesheets.Core.Persistence
         public TimesheetDbContext() { }
 		public TimesheetDbContext(DbContextOptions<TimesheetDbContext> options) : base(options) { }
 
-		public virtual DbSet<Timesheet>? Timesheets { get; set; }
-        public virtual DbSet<Project>? Projects { get; set; }
-        public virtual DbSet<User>? Users { get; set; }
+		public virtual DbSet<Timesheet> Timesheets { get; set; }
+        public virtual DbSet<Project> Projects { get; set; }
+        public virtual DbSet<User> Users { get; set; }
     }
 }

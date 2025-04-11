@@ -7,11 +7,6 @@ namespace Timesheets.Core.Services
 	{
 		public bool AddUser(User user)
 		{
-			if (ctx.Users is null)
-			{
-				throw new InvalidOperationException("Could not access database tables");
-			}
-
 			ctx.Users.Add(user);
 			ctx.SaveChanges();
 
