@@ -17,9 +17,6 @@
             <h2 class="timesheets-forms__error">@ViewBag.Error</h2>
         }
     </div>
-    <div class="timesheets-forms__buttons">
-        <a href="/">Back to timesheets</a>
-    </div>
     <div class="timesheets-forms__form">
         @using (Html.BeginForm())
         {
@@ -35,5 +32,8 @@
 
             @Html.ValidationSummary(true)
         }
+    </div>
+    <div class="timesheets-forms__buttons">
+        <a href="/">Back to timesheets</a>
     </div>
 </div>
