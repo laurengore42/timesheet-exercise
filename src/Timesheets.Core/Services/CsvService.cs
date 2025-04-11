@@ -4,25 +4,27 @@ using System.Formats.Asn1;
 using System.Globalization;
 using CsvHelper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Timesheets.Core.Persistence;
 
 namespace Timesheets.Core.Services
 {
     public class CsvService(TimesheetDbContext ctx, ITimesheetService timesheetService) : ICsvService
 	{
-        public IActionResult CsvTimesheetExport()
+        public void CsvTimesheetExport()
 		{
 			if (ctx.Timesheets is null)
 			{
 				throw new InvalidOperationException("Could not access database tables");
             }
 
-            var memoryStream = new MemoryStream();
-            var streamWriter = new StreamWriter(memoryStream);
-            var csvWriter = new CsvWriter(streamWriter, CultureInfo.CurrentCulture);
-            csvWriter.WriteRecords(timesheetService.FetchAllTimesheets());
+            var records = timesheetService.FetchAllTimesheets();
 
-            return new FileStreamResult(memoryStream, "text/csv");
+            using (TextWriter writer = new StreamWriter(@"assets\export.csv", false))
+            {
+                var csv = new CsvWriter(writer, CultureInfo.CurrentCulture);
+                csv.WriteRecords(records);
+            }
         }
     }
 }

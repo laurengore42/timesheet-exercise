@@ -18,7 +18,9 @@ namespace Timesheets.Web.Ui.Controllers
 
         public IActionResult CsvTimesheetExport()
         {
-            return csvService.CsvTimesheetExport();
+            csvService.CsvTimesheetExport();
+
+            return Redirect("/export.csv");
         }
     }
 }

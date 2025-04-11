@@ -4,6 +4,6 @@ namespace Timesheets.Core.Services
 {
     public interface ICsvService
 	{
-        public IActionResult CsvTimesheetExport();
+        public void CsvTimesheetExport();
     }
 }
