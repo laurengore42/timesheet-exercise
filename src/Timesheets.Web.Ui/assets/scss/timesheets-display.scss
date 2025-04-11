@@ -34,13 +34,22 @@
     }
 
     tr:nth-child(odd) {
-      background-color: rgb(0 0 0 / 5%);
+      background-color: rgb(0 0 0 / 7.5%);
+    }
+
+    tr:first-child {
+      background-color: white;
     }
   }
 
   &__heading {
-    padding: 0.75rem;
+    padding: 0.5rem 1rem;
+    text-align: left;
     border: 1px solid rgb(0 0 0 / 80%);
+
+    &--button {
+      border: none;
+    }
   }
 
   &__cell {
@@ -49,6 +58,12 @@
 
     &--date, &--number {
       font-weight: bolder;
+    }
+
+    &--button {
+      background-color: white;
+      padding: 1rem 0.5rem;
+      border: none;
     }
   }
 }

@@ -39,7 +39,7 @@
             <th class="timesheets-display__heading timesheets-display__heading--number">
                 Total hours for the day
             </th>
-            <th class="timesheets-display__heading">
+            <th class="timesheets-display__heading timesheets-display__heading--button">
             </th>
         </tr>
         @foreach (var timesheet in Model)
@@ -63,7 +63,7 @@
                 <td class="timesheets-display__cell timesheets-display__cell--number">
                     @timesheet.TotalHours
                 </td>
-                <td class="timesheets-display__cell">
+                <td class="timesheets-display__cell timesheets-display__cell--button">
                     @{
                         var deleteUrl = $"/Timesheet/Delete?timesheetId={timesheet.Id}";
                     }
