@@ -3,8 +3,9 @@ using Moq;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 using Timesheets.Core.Services;
+using Timesheets.Tests.Helpers;
 
-namespace Timesheets.Tests
+namespace Timesheets.Tests.Tests
 {
     public class TimesheetTests
     {

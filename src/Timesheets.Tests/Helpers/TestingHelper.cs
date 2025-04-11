@@ -4,7 +4,7 @@ using Moq.EntityFrameworkCore;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 
-namespace Timesheets.Tests
+namespace Timesheets.Tests.Helpers
 {
 	public static class TestingHelper
 	{
