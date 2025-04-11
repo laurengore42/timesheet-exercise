@@ -178,8 +178,8 @@ namespace Timesheets.Tests
                 Assert.Equal(TestingHelper.SampleTimesheets.Length + 2, fileLines.Length);
                 var firstLine = fileLines[0];
                 var secondLine = fileLines[1];
-                Assert.Equal("UserId,UserName,Date,ProjectId,ProjectName,Memo,Hours,TotalHours", firstLine);
-                Assert.Equal("2000,John Smith,22/10/2014,1000,Project Alpha,Developed new feature X,4,8", secondLine);
+                Assert.Equal("Id,UserId,UserName,Date,ProjectId,ProjectName,Memo,Hours,TotalHours", firstLine);
+                Assert.Equal("0,2000,John Smith,22/10/2014,1000,Project Alpha,Developed new feature X,4,8", secondLine);
             }
         }
     }
