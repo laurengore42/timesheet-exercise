@@ -37,15 +37,14 @@ namespace Timesheets.Core.Services
                 throw new InvalidOperationException("Could not access database tables");
             }
 
-            var hoursPerUserPerDay = Enumerable.ToList(Queryable.Select(Queryable.GroupBy(ctx.Timesheets, t => new { t.UserId, t.Date }), group => new { group.Key, HourSum = Enumerable.Sum(group, g => g.Hours) })
-);
+            var hoursPerUserPerDay = Enumerable.ToList(Queryable.Select(Queryable.GroupBy(ctx.Timesheets, t => new { t.UserId, t.Date }), group => new { group.Key, HourSum = Enumerable.Sum(group, g => g.Hours) }));
 
             return ctx.Timesheets
-                .Include<Timesheet, User>(t => t.User)
-                .Include<Timesheet, Project>(t => t.Project)
+                .Include(t => t.User)
+                .Include(t => t.Project)
                 .ToList()
-                .Select((Func<Timesheet, TimesheetViewModel>)(t => new TimesheetViewModel(t,
-                    (decimal)(hoursPerUserPerDay.Find(
+                .Select((t => new TimesheetViewModel(t,
+                    (hoursPerUserPerDay.Find(
                         hours => hours.Key.UserId == t.UserId &&
                                  hours.Key.Date == t.Date)?
                         .HourSum ?? 0))));
