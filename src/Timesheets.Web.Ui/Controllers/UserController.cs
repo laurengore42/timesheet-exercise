@@ -4,7 +4,7 @@ using Timesheets.Core.Services;
 
 namespace Timesheets.Web.Ui.Controllers
 {
-    public class PersonController(IPersonService personService) : Controller
+    public class UserController(IUserService userService) : Controller
     {
         public IActionResult Add()
         {
@@ -12,14 +12,14 @@ namespace Timesheets.Web.Ui.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(Person person)
+        public IActionResult Add(User user)
         {
             if (!ModelState.IsValid)
             {
-                return View(person);
+                return View(user);
             }
 
-			if (personService.AddPerson(person))
+			if (userService.AddUser(user))
 			{
 				return RedirectToAction("Add", "Timesheet");
             }

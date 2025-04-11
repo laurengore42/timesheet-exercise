@@ -3,7 +3,7 @@
 namespace Timesheets.Core.Persistence.Models
 {
     [PrimaryKey(nameof(Id))]
-    public class Person
+    public class User
     {
         public int Id { get; set; }
 

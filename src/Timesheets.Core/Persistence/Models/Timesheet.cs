@@ -8,7 +8,7 @@ namespace Timesheets.Core.Persistence.Models
     {
         public int Id { get; set; }
 
-        public required int PersonId { get; set; }
+        public required int UserId { get; set; }
 
         public required DateOnly Date { get; set; }
 
@@ -18,8 +18,8 @@ namespace Timesheets.Core.Persistence.Models
 
         public required string Memo { get; set; }
 
-        [ForeignKey(nameof(PersonId))]
-        public Person? Person { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public User? User { get; set; }
 		[ForeignKey(nameof(ProjectId))]
         public Project? Project { get; set; }
     }

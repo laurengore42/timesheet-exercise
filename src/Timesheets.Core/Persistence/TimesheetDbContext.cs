@@ -10,6 +10,6 @@ namespace Timesheets.Core.Persistence
 
 		public virtual DbSet<Timesheet>? Timesheets { get; set; }
         public virtual DbSet<Project>? Projects { get; set; }
-        public virtual DbSet<Person>? Persons { get; set; }
+        public virtual DbSet<User>? Users { get; set; }
     }
 }

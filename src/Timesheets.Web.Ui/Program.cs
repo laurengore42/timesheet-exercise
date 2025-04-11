@@ -15,7 +15,7 @@ builder.Services.AddDbContext<TimesheetDbContext>(optionsBuilder =>
     });
 });
 builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<IPersonService, PersonService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ITimesheetService, TimesheetService>();
 builder.Services.AddScoped<ICsvService, CsvService>();
 

@@ -9,12 +9,12 @@ namespace Timesheets.Core.Services
     {
 		public bool AddTimesheet(Timesheet timesheet)
 		{
-			if (ctx.Timesheets is null || ctx.Persons is null || ctx.Projects is null)
+			if (ctx.Timesheets is null || ctx.Users is null || ctx.Projects is null)
 			{
 				throw new InvalidOperationException("Could not access database tables");
 			}
 
-			if (ctx.Persons.FirstOrDefault(p => p.Id == timesheet.PersonId) is null)
+			if (ctx.Users.FirstOrDefault(p => p.Id == timesheet.UserId) is null)
 			{
 				return false;
 			}
@@ -37,20 +37,18 @@ namespace Timesheets.Core.Services
                 throw new InvalidOperationException("Could not access database tables");
             }
 
-            var hoursPerPersonPerDay = ctx.Timesheets
-                .GroupBy(t => new { t.PersonId, t.Date })
-                .Select(group => new { group.Key, HourSum = group.Sum(g => g.Hours) })
-                .ToList();
+            var hoursPerUserPerDay = Enumerable.ToList(Queryable.Select(Queryable.GroupBy(ctx.Timesheets, t => new { t.UserId, t.Date }), group => new { group.Key, HourSum = Enumerable.Sum(group, g => g.Hours) })
+);
 
             return ctx.Timesheets
-                .Include(t => t.Person)
-                .Include(t => t.Project)
+                .Include<Timesheet, User>(t => t.User)
+                .Include<Timesheet, Project>(t => t.Project)
                 .ToList()
-                .Select(t => new TimesheetViewModel(t,
-                    hoursPerPersonPerDay.Find(
-                        hours => hours.Key.PersonId == t.PersonId &&
+                .Select((Func<Timesheet, TimesheetViewModel>)(t => new TimesheetViewModel(t,
+                    (decimal)(hoursPerUserPerDay.Find(
+                        hours => hours.Key.UserId == t.UserId &&
                                  hours.Key.Date == t.Date)?
-                        .HourSum ?? 0));
+                        .HourSum ?? 0))));
 
         }
     }

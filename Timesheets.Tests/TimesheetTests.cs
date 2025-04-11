@@ -15,13 +15,13 @@ namespace Timesheets.Tests
 
             var ctxMock = new Mock<TimesheetDbContext>();
             var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			var personsSet = new Mock<DbSet<Person>>();
+			var usersSet = new Mock<DbSet<User>>();
 			var projectsSet = new Mock<DbSet<Project>>();
-            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
 
 			Timesheet newTimesheet = new()
 			{
-				PersonId = 2000,
+				UserId = 2000,
 				ProjectId = 1000,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
@@ -48,13 +48,13 @@ namespace Timesheets.Tests
 
 			var ctxMock = new Mock<TimesheetDbContext>();
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			var personsSet = new Mock<DbSet<Person>>();
+			var usersSet = new Mock<DbSet<User>>();
 			var projectsSet = new Mock<DbSet<Project>>();
-			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
 
 			Timesheet newTimesheet = new()
 			{
-				PersonId = 0,
+				UserId = 0,
 				ProjectId = -1,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
@@ -75,19 +75,19 @@ namespace Timesheets.Tests
 		}
 
 		[Fact]
-		public void AddTimesheetWithInvalidPersonId()
+		public void AddTimesheetWithInvalidUserId()
 		{
 			// Arrange
 
 			var ctxMock = new Mock<TimesheetDbContext>();
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			var personsSet = new Mock<DbSet<Person>>();
+			var usersSet = new Mock<DbSet<User>>();
 			var projectsSet = new Mock<DbSet<Project>>();
-			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
 
 			Timesheet newTimesheet = new()
 			{
-				PersonId = -1,
+				UserId = -1,
 				ProjectId = 0,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
@@ -114,16 +114,16 @@ namespace Timesheets.Tests
 
             var ctxMock = new Mock<TimesheetDbContext>();
             var timesheetsSet = new Mock<DbSet<Timesheet>>();
-            var personsSet = new Mock<DbSet<Person>>();
+            var usersSet = new Mock<DbSet<User>>();
             var projectsSet = new Mock<DbSet<Project>>();
-            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
 
             var timesheetService = new TimesheetService(ctxMock.Object);
 
             // Act
 
             var result = timesheetService.FetchAllTimesheets();
-            var firstResult = result.FirstOrDefault(t => t.PersonName == "John Smith" && t.Date == "22/10/2014");
+            var firstResult = result.FirstOrDefault(t => t.UserName == "John Smith" && t.Date == "22/10/2014");
 
             // Assert
 

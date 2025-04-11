@@ -20,7 +20,7 @@ namespace Timesheets.Core.Persistence
 			}
 		];
 
-		public static readonly Person[] SamplePersons = [
+		public static readonly User[] SampleUsers = [
 			new()
 			{
 				Name = "John Smith"
@@ -34,7 +34,7 @@ namespace Timesheets.Core.Persistence
 		public static readonly Timesheet[] SampleTimesheets = [
 			new()
 			{
-				PersonId = 1,
+				UserId = 1,
 				ProjectId = 1,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
@@ -42,7 +42,7 @@ namespace Timesheets.Core.Persistence
 			},
 			new()
 			{
-				PersonId = 1,
+				UserId = 1,
 				ProjectId = 2,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Fixed bugs in module Y",
@@ -50,7 +50,7 @@ namespace Timesheets.Core.Persistence
 			},
 			new()
 			{
-				PersonId = 2,
+				UserId = 2,
 				ProjectId = 3,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Conducted user testing",
@@ -65,9 +65,9 @@ namespace Timesheets.Core.Persistence
 				ctx.Set<Project>().AddRange(SampleProjects);
 			}
 
-			if (ctx.Set<Person>().FirstOrDefault(t => t.Name == "John Smith") is null)
+			if (ctx.Set<User>().FirstOrDefault(t => t.Name == "John Smith") is null)
 			{
-				ctx.Set<Person>().AddRange(SamplePersons);
+				ctx.Set<User>().AddRange(SampleUsers);
 			}
 
 			if (ctx.Set<Timesheet>().FirstOrDefault(t => t.Hours == 4) is null)

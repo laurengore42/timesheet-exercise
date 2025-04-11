@@ -7,7 +7,7 @@
 @{
     Layout = "_Layout";
 
-    List<Person> Persons = [.. ctx.Persons];
+    List<User> Users = [.. ctx.Users];
     List<Project> Projects = [.. ctx.Projects];
 }
 
@@ -20,7 +20,7 @@
     <div class="timesheets-add__buttons">
         <a href="/">View timesheets</a>
         <a href="/Project/Add">Add a new project</a>
-        <a href="/Person/Add">Add a new person</a>
+        <a href="/User/Add">Add a new user</a>
     </div>
     <div class="timesheets-add__form">
         @using (Html.BeginForm())
@@ -28,12 +28,12 @@
             @Html.AntiForgeryToken()
 
             <div class="timesheets-add__form-input">
-                <label class="timesheets-add__form-label" for="person">Person</label>
-                <select required id="person" name="personId">
-                    <option value="">Choose a person...</option>
-                    @foreach (var person in Persons)
+                <label class="timesheets-add__form-label" for="user">User</label>
+                <select required id="user" name="userId">
+                    <option value="">Choose a user...</option>
+                    @foreach (var user in Users)
                     {
-                        <option value=@person.Id>@person.Name</option>
+                        <option value=@user.Id>@user.Name</option>
                     }
                 </select>
             </div>

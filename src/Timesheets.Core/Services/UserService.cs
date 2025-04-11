@@ -3,16 +3,16 @@ using Timesheets.Core.Persistence.Models;
 
 namespace Timesheets.Core.Services
 {
-    public class PersonService(TimesheetDbContext ctx) : IPersonService
+    public class UserService(TimesheetDbContext ctx) : IUserService
 	{
-		public bool AddPerson(Person person)
+		public bool AddUser(User user)
 		{
-			if (ctx.Persons is null)
+			if (ctx.Users is null)
 			{
 				throw new InvalidOperationException("Could not access database tables");
 			}
 
-			ctx.Persons.Add(person);
+			ctx.Users.Add(user);
 			ctx.SaveChanges();
 
 			return true;

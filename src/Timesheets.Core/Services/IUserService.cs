@@ -2,8 +2,8 @@
 
 namespace Timesheets.Core.Services
 {
-    public interface IPersonService
+    public interface IUserService
 	{
-		public bool AddPerson(Person person);
+		public bool AddUser(User user);
     }
 }
