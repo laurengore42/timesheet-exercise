@@ -3,6 +3,7 @@ using Moq;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 using Timesheets.Core.Services;
+using Timesheets.Core.ViewModels;
 
 namespace Timesheets.Tests
 {
@@ -54,7 +55,7 @@ namespace Timesheets.Tests
 
 			Timesheet newTimesheet = new()
 			{
-				UserId = 0,
+				UserId = 2000,
 				ProjectId = -1,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
@@ -88,8 +89,8 @@ namespace Timesheets.Tests
 			Timesheet newTimesheet = new()
 			{
 				UserId = -1,
-				ProjectId = 0,
-				Date = new DateOnly(2014, 10, 22),
+                ProjectId = 1000,
+                Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
 				Hours = 4
 			};
@@ -130,6 +131,39 @@ namespace Timesheets.Tests
             Assert.NotNull(firstResult);
             Assert.Equal(4, firstResult.Hours);
             Assert.Equal(8, firstResult.TotalHours);
+        }
+
+        [Fact]
+        public void StripCommasForCsvExport()
+        {
+            // Arrange
+
+            var ctxMock = new Mock<TimesheetDbContext>();
+            var timesheetsSet = new Mock<DbSet<Timesheet>>();
+            var usersSet = new Mock<DbSet<User>>();
+            var projectsSet = new Mock<DbSet<Project>>();
+            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
+
+            Timesheet newTimesheet = new()
+            {
+                UserId = 2000,
+                User = TestingHelper.SampleUsers.First(u => u.Id == 2000),
+                ProjectId = 1000,
+                Project = TestingHelper.SampleProjects.First(p => p.Id == 1000),
+                Date = new DateOnly(2014, 10, 22),
+                Memo = "Test,words",
+                Hours = 4
+            };
+
+            // Act
+
+            var plainResult = new TimesheetViewModel(newTimesheet, 8);
+            var strippedResult = new TimesheetViewModel(newTimesheet, 8, true);
+
+            // Assert
+
+            Assert.Equal("Test,words", plainResult.Memo);
+            Assert.Equal("Test words", strippedResult.Memo);
         }
     }
 }
