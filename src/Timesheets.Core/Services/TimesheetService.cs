@@ -1,5 +1,7 @@
-﻿using Timesheets.Core.Persistence;
+﻿using Microsoft.EntityFrameworkCore;
+using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
+using Timesheets.Core.ViewModels;
 
 namespace Timesheets.Core.Services
 {
@@ -27,5 +29,29 @@ namespace Timesheets.Core.Services
 
 			return true;
 		}
+
+        public IEnumerable<TimesheetViewModel> FetchAllTimesheets()
+        {
+            if (ctx.Timesheets is null)
+            {
+                throw new InvalidOperationException("Could not access database tables");
+            }
+
+            var hoursPerPersonPerDay = ctx.Timesheets
+                .GroupBy(t => new { t.PersonId, t.Date })
+                .Select(group => new { group.Key, HourSum = group.Sum(g => g.Hours) })
+                .ToList();
+
+            return ctx.Timesheets
+                .Include(t => t.Person)
+                .Include(t => t.Project)
+                .ToList()
+                .Select(t => new TimesheetViewModel(t,
+                    hoursPerPersonPerDay.Find(
+                        hours => hours.Key.PersonId == t.PersonId &&
+                                 hours.Key.Date == t.Date)?
+                        .HourSum ?? 0));
+
+        }
     }
 }

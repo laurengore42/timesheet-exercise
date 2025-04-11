@@ -1,13 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using Moq;
-using Moq.EntityFrameworkCore;
 using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 using Timesheets.Core.Services;
 
 namespace Timesheets.Tests
 {
-    public class Tests
+    public class TimesheetTests
     {
         [Fact]
         public void AddValidTimesheet()
@@ -35,9 +34,9 @@ namespace Timesheets.Tests
 
             var result = timesheetService.AddTimesheet(newTimesheet);
 
-			// Assert
+            // Assert
 
-			result.Equals(true);
+            Assert.True(result);
 			timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Once());
             ctxMock.Verify(x => x.SaveChanges(), Times.Once());
         }
@@ -70,7 +69,7 @@ namespace Timesheets.Tests
 
             // Assert
 
-            result.Equals(false);
+            Assert.False(result);
             timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Never());
             ctxMock.Verify(x => x.SaveChanges(), Times.Never());
 		}
@@ -101,11 +100,35 @@ namespace Timesheets.Tests
 
 			var result = timesheetService.AddTimesheet(newTimesheet);
 
-			// Assert
+            // Assert
 
-			result.Equals(false);
-			timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Never());
+            Assert.False(result);
+            timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Never());
 			ctxMock.Verify(x => x.SaveChanges(), Times.Never());
 		}
-	}
+
+        [Fact]
+        public void GetTotalHoursForTimesheets()
+        {
+            // Arrange
+
+            var ctxMock = new Mock<TimesheetDbContext>();
+            var timesheetsSet = new Mock<DbSet<Timesheet>>();
+            var personsSet = new Mock<DbSet<Person>>();
+            var projectsSet = new Mock<DbSet<Project>>();
+            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, personsSet, projectsSet);
+
+            var timesheetService = new TimesheetService(ctxMock.Object);
+
+            // Act
+
+            var result = timesheetService.FetchAllTimesheets();
+            var firstResult = result.FirstOrDefault(t => t.PersonName == "John Smith" && t.Date == "22/10/2014");
+
+            // Assert
+
+            Assert.NotNull(firstResult);
+            Assert.Equal(8, firstResult.TotalHours);
+        }
+    }
 }

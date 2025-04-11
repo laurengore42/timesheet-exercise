@@ -1,40 +1,28 @@
-﻿using CsvHelper;
-using Microsoft.EntityFrameworkCore;
+﻿
+
+using System.Formats.Asn1;
 using System.Globalization;
+using CsvHelper;
+using Microsoft.AspNetCore.Mvc;
 using Timesheets.Core.Persistence;
-using Timesheets.Core.ViewModels;
 
 namespace Timesheets.Core.Services
 {
-    public class CsvService(TimesheetDbContext ctx) : ICsvService
+    public class CsvService(TimesheetDbContext ctx, ITimesheetService timesheetService) : ICsvService
 	{
-        public void Export()
+        public IActionResult CsvTimesheetExport()
 		{
 			if (ctx.Timesheets is null)
 			{
 				throw new InvalidOperationException("Could not access database tables");
-			}
+            }
 
-            var hoursPerPersonPerDay = ctx.Timesheets
-                .GroupBy(t => new { t.PersonId, t.Date })
-                .Select(group => new { group.Key, HourSum = group.Sum(g => g.Hours) })
-                .ToList();
+            var memoryStream = new MemoryStream();
+            var streamWriter = new StreamWriter(memoryStream);
+            var csvWriter = new CsvWriter(streamWriter, CultureInfo.CurrentCulture);
+            csvWriter.WriteRecords(timesheetService.FetchAllTimesheets());
 
-            var fullTimesheets = ctx.Timesheets
-                .Include(t => t.Person)
-                .Include(t => t.Project)
-                .ToList()
-                .Select(t => new CsvTimesheetViewModel(t,
-                    hoursPerPersonPerDay.Find(
-                        hours => hours.Key.PersonId == t.PersonId &&
-                                 hours.Key.Date == t.Date)?
-                        .HourSum ?? 0));
-
-			using (var writer = new StreamWriter("assets\\export.csv"))
-			using (var csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
-			{
-				csv.WriteRecords(fullTimesheets);
-			}
-		}
+            return new FileStreamResult(memoryStream, "text/csv");
+        }
     }
 }

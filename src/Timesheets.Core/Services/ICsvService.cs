@@ -1,7 +1,9 @@
-﻿namespace Timesheets.Core.Services
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace Timesheets.Core.Services
 {
     public interface ICsvService
 	{
-        public void Export();
+        public IActionResult CsvTimesheetExport();
     }
 }
