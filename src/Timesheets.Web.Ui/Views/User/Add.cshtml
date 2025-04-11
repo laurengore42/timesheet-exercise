@@ -7,26 +7,29 @@
     Layout = "_Layout";
 }
 
-<div class="timesheets-add">
-    <div class="timesheets-add__message">
+<div class="timesheets-forms">
+    <div class="timesheets-forms__message">
         <h1>
             Add a new user
         </h1>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+        {
+            <h2 class="timesheets-forms__error">@ViewBag.Error</h2>
+        }
     </div>
-    <div class="timesheets-add__buttons">
-        <a href="/Timesheet/Add">Log work</a>
-        <a href="/">View timesheets</a>
+    <div class="timesheets-forms__buttons">
+        <a href="/">Back to timesheets</a>
     </div>
-    <div class="timesheets-add__form">
+    <div class="timesheets-forms__form">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-            <div class="timesheets-add__form-input">
-                <label class="timesheets-add__form-label" for="name">Name</label>
+            <div class="timesheets-forms__form-input">
+                <label class="timesheets-forms__form-label" for="name">Name</label>
                 <input required id="name" name="name" type="text" />
             </div>
-            <div class="timesheets-add__form-input">
+            <div class="timesheets-forms__form-input">
                 <button type="submit">Add</button>
             </div>
 

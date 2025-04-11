@@ -1,16 +1,19 @@
 ﻿@using Timesheets.Core.Persistence
 @using Timesheets.Core.Persistence.Models
 @using Timesheets.Core.ViewModels
-@model Project
+@model User
+@inject TimesheetDbContext ctx;
 
 @{
     Layout = "_Layout";
+
+    List<User> Users = [.. ctx.Users];
 }
 
 <div class="timesheets-forms">
     <div class="timesheets-forms__message">
         <h1>
-            Add a new project
+            Delete a user
         </h1>
         @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
         {
@@ -26,11 +29,17 @@
             @Html.AntiForgeryToken()
 
             <div class="timesheets-forms__form-input">
-                <label class="timesheets-forms__form-label" for="name">Name</label>
-                <input required id="name" name="name" type="text" />
+                <label class="timesheets-forms__form-label" for="user">User</label>
+                <select required id="user" name="userId">
+                    <option value="">Choose a user...</option>
+                    @foreach (var user in Users)
+                    {
+                        <option value=@user.Id>#@user.Id @user.Name</option>
+                    }
+                </select>
             </div>
             <div class="timesheets-forms__form-input">
-                <button type="submit">Add</button>
+                <button type="submit">Delete</button>
             </div>
 
             @Html.ValidationSummary(true)

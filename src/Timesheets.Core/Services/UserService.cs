@@ -11,6 +11,14 @@ namespace Timesheets.Core.Services
 			ctx.SaveChanges();
 
 			return true;
-		}
+        }
+
+        public bool DeleteUser(User user)
+        {
+            ctx.Users.Remove(user);
+            ctx.SaveChanges();
+
+            return true;
+        }
     }
 }

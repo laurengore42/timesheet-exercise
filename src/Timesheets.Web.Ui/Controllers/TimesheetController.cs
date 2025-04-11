@@ -8,7 +8,7 @@ namespace Timesheets.Web.Ui.Controllers
     {
         public IActionResult Add()
         {
-            return View("Add");
+            return View();
         }
 
         [HttpPost]
@@ -25,7 +25,8 @@ namespace Timesheets.Web.Ui.Controllers
             }
             else
             {
-                throw new InvalidOperationException("Failed to save timesheet");
+                ViewBag.Error = "Failed to save timesheet";
+                return View(timesheet);
             }
         }
     }

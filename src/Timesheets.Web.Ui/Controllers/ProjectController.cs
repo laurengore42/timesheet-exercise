@@ -1,14 +1,15 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Timesheets.Core.Persistence;
 using Timesheets.Core.Persistence.Models;
 using Timesheets.Core.Services;
 
 namespace Timesheets.Web.Ui.Controllers
 {
-    public class ProjectController(IProjectService projectService) : Controller
+    public class ProjectController(TimesheetDbContext ctx, IProjectService projectService) : Controller
     {
         public IActionResult Add()
         {
-            return View("Add");
+            return View();
         }
 
         [HttpPost]
@@ -25,7 +26,35 @@ namespace Timesheets.Web.Ui.Controllers
             }
             else
             {
-                throw new InvalidOperationException("Failed to save project");
+                ViewBag.Error = "Failed to save project";
+                return View(project);
+            }
+        }
+
+        public IActionResult Delete()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int projectId)
+        {
+            var project = ctx.Projects.Find(projectId)
+                ?? throw new ArgumentOutOfRangeException(nameof(projectId));
+
+            if (ctx.Timesheets.Any(t => t.ProjectId == projectId))
+            {
+                ViewBag.Error = "Cannot delete a project with existing timesheet rows";
+                return View();
+            }
+
+            if (projectService.DeleteProject(project))
+            {
+                return RedirectToAction("Add", "Timesheet");
+            }
+            else
+            {
+                throw new InvalidOperationException("Failed to delete project");
             }
         }
     }

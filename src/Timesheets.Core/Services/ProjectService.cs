@@ -11,6 +11,14 @@ namespace Timesheets.Core.Services
 			ctx.SaveChanges();
 
 			return true;
-		}
+        }
+
+        public bool DeleteProject(Project project)
+        {
+            ctx.Projects.Remove(project);
+            ctx.SaveChanges();
+
+            return true;
+        }
     }
 }

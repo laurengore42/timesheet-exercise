@@ -11,24 +11,30 @@
     List<Project> Projects = [.. ctx.Projects];
 }
 
-<div class="timesheets-add">
-    <div class="timesheets-add__message">
+<div class="timesheets-forms">
+    <div class="timesheets-forms__message">
         <h1>
             Add your timesheet entry below
         </h1>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+        {
+            <h2 class="timesheets-forms__error">@ViewBag.Error</h2>
+        }
     </div>
-    <div class="timesheets-add__buttons">
-        <a href="/">View timesheets</a>
+    <div class="timesheets-forms__buttons">
+        <a href="/">Back to timesheets</a>
         <a href="/Project/Add">Add a new project</a>
+        <a href="/Project/Delete">Delete a project</a>
         <a href="/User/Add">Add a new user</a>
+        <a href="/User/Delete">Delete a user</a>
     </div>
-    <div class="timesheets-add__form">
+    <div class="timesheets-forms__form">
         @using (Html.BeginForm())
         {
             @Html.AntiForgeryToken()
 
-            <div class="timesheets-add__form-input">
-                <label class="timesheets-add__form-label" for="user">User</label>
+            <div class="timesheets-forms__form-input">
+                <label class="timesheets-forms__form-label" for="user">User</label>
                 <select required id="user" name="userId">
                     <option value="">Choose a user...</option>
                     @foreach (var user in Users)
@@ -37,12 +43,12 @@
                     }
                 </select>
             </div>
-            <div class="timesheets-add__form-input">
-                <label class="timesheets-add__form-label" for="date">Date</label>
+            <div class="timesheets-forms__form-input">
+                <label class="timesheets-forms__form-label" for="date">Date</label>
                 <input required id="date" name="date" type="date" />
             </div>
-            <div class="timesheets-add__form-input">
-                <label class="timesheets-add__form-label" for="project">Projects</label>
+            <div class="timesheets-forms__form-input">
+                <label class="timesheets-forms__form-label" for="project">Projects</label>
                 <select required id="project" name="projectId">
                     <option value="">Choose a project...</option>
                     @foreach (var project in Projects)
@@ -51,15 +57,15 @@
                     }
                 </select>
             </div>
-            <div class="timesheets-add__form-input">
-                <label class="timesheets-add__form-label" for="hours">Hours</label>
+            <div class="timesheets-forms__form-input">
+                <label class="timesheets-forms__form-label" for="hours">Hours</label>
                 <input required id="hours" name="hours" type="number" min="0.25" step="0.25" />
             </div>
-            <div class="timesheets-add__form-input">
-                <label class="timesheets-add__form-label" for="memo">Memo</label>
+            <div class="timesheets-forms__form-input">
+                <label class="timesheets-forms__form-label" for="memo">Memo</label>
                 <input required id="memo" name="memo" type="text" />
             </div>
-            <div class="timesheets-add__form-input">
+            <div class="timesheets-forms__form-input">
                 <button type="submit">Add</button>
             </div>
 
