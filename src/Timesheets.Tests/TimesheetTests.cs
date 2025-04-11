@@ -160,7 +160,7 @@ namespace Timesheets.Tests
             TestingHelper.SetupDbContext(ctxMock);
 
             var timesheetService = new TimesheetService(ctxMock.Object);
-            var csvService = new CsvService(ctxMock.Object, timesheetService);
+            var csvService = new CsvService(timesheetService);
             var csvPath = "test-export.csv";
 
             // Act

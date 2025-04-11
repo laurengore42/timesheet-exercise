@@ -1,10 +1,9 @@
 ﻿using System.Globalization;
 using CsvHelper;
-using Timesheets.Core.Persistence;
 
 namespace Timesheets.Core.Services
 {
-    public class CsvService(TimesheetDbContext ctx, ITimesheetService timesheetService) : ICsvService
+    public class CsvService(ITimesheetService timesheetService) : ICsvService
 	{
         public void CsvTimesheetExport(string path)
 		{
