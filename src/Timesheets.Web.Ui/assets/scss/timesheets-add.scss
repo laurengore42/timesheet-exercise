@@ -1,34 +1,17 @@
 .timesheets-add {
   background-color: white;
-	color: rgba(0,0,0,0.8);
+	color: rgb(0 0 0 / 80%);
   font-family: Arial, Helvetica, sans-serif;
   padding: 2rem;
 
   &__buttons {
     padding: 0.5rem 1rem 2.5rem 0;
-
-    a {
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.8);
-      border-radius: 3px;
-      font-size: large;
-      font-family: Arial, Helvetica, sans-serif;
-      text-decoration: none;
-      background-color: rgba(0,0,0,0.05);
-      color: rgba(0,0,0,0.8);
-      transition: background-color 0.1s ease-out;
-
-      &:hover {
-        background-color: rgba(110, 173, 214, 0.479);
-      }
-    }
   }
 
   &__form {
     padding: 2rem;
     background-color: white;
-    border: 1px solid rgba(0,0,0,0.8);
+    border: 1px solid rgb(0 0 0 / 80%);
 
     &-input {
       display: flex;
@@ -39,23 +22,6 @@
 
     &-label {
       flex-basis: 100px;
-    }
-
-    button {
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      border: 1px solid rgba(0,0,0,0.8);
-      border-radius: 3px;
-      font-size: large;
-      font-family: Arial, Helvetica, sans-serif;
-      text-decoration: none;
-      background-color: rgba(0,0,0,0.05);
-      color: rgba(0,0,0,0.8);
-      transition: background-color 0.1s ease-out;
-
-      &:hover {
-        background-color: rgba(110, 173, 214, 0.479);
-      }
     }
   }
 }
