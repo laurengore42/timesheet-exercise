@@ -23,7 +23,14 @@ namespace Timesheets.Core.Services
 			ctx.SaveChanges();
 
 			return true;
-		}
+        }
+        public bool DeleteTimesheet(Timesheet timesheet)
+        {
+            ctx.Timesheets.Remove(timesheet);
+            ctx.SaveChanges();
+
+            return true;
+        }
 
         public IEnumerable<TimesheetViewModel> FetchAllTimesheets(bool stripCommas = false)
         {

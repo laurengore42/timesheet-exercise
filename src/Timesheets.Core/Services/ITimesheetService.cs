@@ -6,6 +6,7 @@ namespace Timesheets.Core.Services
     public interface ITimesheetService
     {
         public bool AddTimesheet(Timesheet timesheet);
+        public bool DeleteTimesheet(Timesheet timesheet);
 
         public IEnumerable<TimesheetViewModel> FetchAllTimesheets(bool stripCommas = false);
     }

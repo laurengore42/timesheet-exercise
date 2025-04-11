@@ -8,6 +8,10 @@
     padding: 0.5rem 1rem 2.5rem 0;
   }
 
+  &__error {
+    color: red;
+  }
+
   &__table {
     background-color: white;
     border-collapse: collapse;

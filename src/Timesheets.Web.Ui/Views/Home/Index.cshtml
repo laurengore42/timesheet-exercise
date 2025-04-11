@@ -10,6 +10,10 @@
         <h1>
             Timesheets
         </h1>
+        @if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+        {
+            <h2 class="timesheets-display__error">@ViewBag.Error</h2>
+        }
     </div>
     <div class="timesheets-display__buttons">
         <a href="/Timesheet/Add">Log work</a>
@@ -35,6 +39,8 @@
             <th class="timesheets-display__heading timesheets-display__heading--number">
                 Total hours for the day
             </th>
+            <th class="timesheets-display__heading">
+            </th>
         </tr>
         @foreach (var timesheet in Model)
         {
@@ -56,6 +62,12 @@
                 </td>
                 <td class="timesheets-display__cell timesheets-display__cell--number">
                     @timesheet.TotalHours
+                </td>
+                <td class="timesheets-display__cell">
+                    @{
+                        var deleteUrl = $"/Timesheet/Delete?timesheetId={timesheet.Id}";
+                    }
+                    <a href="@deleteUrl">Delete</a>
                 </td>
             </tr>
         }

@@ -4,6 +4,7 @@ namespace Timesheets.Core.ViewModels
 {
     public class TimesheetViewModel(Timesheet t, decimal totalHours, bool stripCommas = false)
     {
+        public int Id { get; } = t.Id;
         public int UserId { get; } = t.UserId;
         public string UserName { get; } = (stripCommas ? t.User?.Name.Replace(",", " ") : t.User?.Name)
             ?? throw new ArgumentNullException(nameof(t.User));
