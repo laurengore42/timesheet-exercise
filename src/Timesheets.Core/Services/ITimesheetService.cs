@@ -7,6 +7,6 @@ namespace Timesheets.Core.Services
     {
         public bool AddTimesheet(Timesheet timesheet);
 
-        public IEnumerable<TimesheetViewModel> FetchAllTimesheets();
+        public IEnumerable<TimesheetViewModel> FetchAllTimesheets(bool stripCommas = false);
     }
 }

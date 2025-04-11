@@ -1,10 +1,5 @@
-﻿
-
-using System.Formats.Asn1;
-using System.Globalization;
+﻿using System.Globalization;
 using CsvHelper;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
 using Timesheets.Core.Persistence;
 
 namespace Timesheets.Core.Services
@@ -18,7 +13,7 @@ namespace Timesheets.Core.Services
 				throw new InvalidOperationException("Could not access database tables");
             }
 
-            var records = timesheetService.FetchAllTimesheets();
+            var records = timesheetService.FetchAllTimesheets(true);
 
             using (TextWriter writer = new StreamWriter(@"wwwroot\export.csv", false))
             {

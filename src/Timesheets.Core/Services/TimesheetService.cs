@@ -30,7 +30,7 @@ namespace Timesheets.Core.Services
 			return true;
 		}
 
-        public IEnumerable<TimesheetViewModel> FetchAllTimesheets()
+        public IEnumerable<TimesheetViewModel> FetchAllTimesheets(bool stripCommas = false)
         {
             if (ctx.Timesheets is null)
             {
@@ -43,11 +43,12 @@ namespace Timesheets.Core.Services
                 .Include(t => t.User)
                 .Include(t => t.Project)
                 .ToList()
-                .Select((t => new TimesheetViewModel(t,
-                    (hoursPerUserPerDay.Find(
+                .Select(t => new TimesheetViewModel(t,
+                    hoursPerUserPerDay.Find(
                         hours => hours.Key.UserId == t.UserId &&
                                  hours.Key.Date == t.Date)?
-                        .HourSum ?? 0))));
+                        .HourSum ?? 0,
+                    stripCommas));
 
         }
     }
