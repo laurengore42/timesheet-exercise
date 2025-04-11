@@ -10,13 +10,13 @@ namespace Timesheets.Tests.Tests
     public class TimesheetTests
     {
         [Fact]
-        public void AddValidTimesheet()
+        public void AddThenDeleteATimesheet()
         {
             // Arrange
 
             var ctxMock = new Mock<TimesheetDbContext>();
             var timesheetsSet = new Mock<DbSet<Timesheet>>();
-            TestingHelper.SetupDbContext(ctxMock, timesheetsSet);
+            TestingHelper.SetupDbContext(ctxMock, timesheetsSet: timesheetsSet);
 
 			Timesheet newTimesheet = new()
 			{
@@ -31,13 +31,16 @@ namespace Timesheets.Tests.Tests
 
             // Act
 
-            var result = timesheetService.AddTimesheet(newTimesheet);
+            var addResult = timesheetService.AddTimesheet(newTimesheet);
+            var deleteResult = timesheetService.DeleteTimesheet(newTimesheet);
 
             // Assert
 
-            Assert.True(result.Success);
-			timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Once());
-            ctxMock.Verify(x => x.SaveChanges(), Times.Once());
+            Assert.True(addResult.Success);
+            timesheetsSet.Verify(x => x.Add(newTimesheet), Times.Once());
+            Assert.True(deleteResult.Success);
+            timesheetsSet.Verify(x => x.Remove(newTimesheet), Times.Once());
+            ctxMock.Verify(x => x.SaveChanges(), Times.Exactly(2));
         }
 
         [Fact]
@@ -47,9 +50,9 @@ namespace Timesheets.Tests.Tests
 
 			var ctxMock = new Mock<TimesheetDbContext>();
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			TestingHelper.SetupDbContext(ctxMock, timesheetsSet);
+            TestingHelper.SetupDbContext(ctxMock, timesheetsSet: timesheetsSet);
 
-			Timesheet newTimesheet = new()
+            Timesheet newTimesheet = new()
             {
                 UserId = TestingHelper.SampleUsers.First().Id,
                 ProjectId = -1,
@@ -67,7 +70,7 @@ namespace Timesheets.Tests.Tests
             // Assert
 
             Assert.False(result.Success);
-            timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Never());
+            timesheetsSet.Verify(x => x.Add(newTimesheet), Times.Never());
             ctxMock.Verify(x => x.SaveChanges(), Times.Never());
 		}
 
@@ -78,9 +81,9 @@ namespace Timesheets.Tests.Tests
 
 			var ctxMock = new Mock<TimesheetDbContext>();
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			TestingHelper.SetupDbContext(ctxMock, timesheetsSet);
+            TestingHelper.SetupDbContext(ctxMock, timesheetsSet: timesheetsSet);
 
-			Timesheet newTimesheet = new()
+            Timesheet newTimesheet = new()
             {
                 UserId = -1,
                 ProjectId = TestingHelper.SampleProjects.First().Id,
@@ -98,50 +101,8 @@ namespace Timesheets.Tests.Tests
             // Assert
 
             Assert.False(result.Success);
-            timesheetsSet.Verify(x => x.Add(It.Is<Timesheet>(t => t == newTimesheet)), Times.Never());
+            timesheetsSet.Verify(x => x.Add(newTimesheet), Times.Never());
 			ctxMock.Verify(x => x.SaveChanges(), Times.Never());
 		}
-
-        [Fact]
-        public void DeleteAProjectWithTimesheetRows()
-        {
-            // Arrange
-
-            var ctxMock = new Mock<TimesheetDbContext>();
-            var projectsSet = new Mock<DbSet<Project>>();
-            TestingHelper.SetupDbContext(ctxMock, null, projectsSet);
-
-            var projectService = new ProjectService(ctxMock.Object);
-
-            // Act
-
-            var result = projectService.DeleteProject(TestingHelper.SampleProjects.First());
-
-            // Assert
-
-            Assert.False(result.Success);
-            projectsSet.Verify(x => x.Remove(TestingHelper.SampleProjects.First()), Times.Never());
-        }
-
-        [Fact]
-        public void DeleteAUserWithTimesheetRows()
-        {
-            // Arrange
-
-            var ctxMock = new Mock<TimesheetDbContext>();
-            var usersSet = new Mock<DbSet<User>>();
-            TestingHelper.SetupDbContext(ctxMock, null, null, usersSet);
-
-            var userService = new UserService(ctxMock.Object);
-
-            // Act
-
-            var result = userService.DeleteUser(TestingHelper.SampleUsers.First());
-
-            // Assert
-
-            Assert.False(result.Success);
-            usersSet.Verify(x => x.Remove(TestingHelper.SampleUsers.First()), Times.Never());
-        }
     }
 }
