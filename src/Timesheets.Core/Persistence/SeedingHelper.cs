@@ -60,17 +60,17 @@ namespace Timesheets.Core.Persistence
 
 		public static void SeedDatabase(DbContext ctx)
 		{
-			if (ctx.Set<Project>().FirstOrDefault(t => t.Name == "Project Alpha") is null)
+			if (ctx.Set<Project>().FirstOrDefault(t => t.Name == SampleProjects.First().Name) is null)
 			{
 				ctx.Set<Project>().AddRange(SampleProjects);
 			}
 
-			if (ctx.Set<User>().FirstOrDefault(t => t.Name == "John Smith") is null)
+			if (ctx.Set<User>().FirstOrDefault(t => t.Name == SampleUsers.First().Name) is null)
 			{
 				ctx.Set<User>().AddRange(SampleUsers);
 			}
 
-			if (ctx.Set<Timesheet>().FirstOrDefault(t => t.Hours == 4) is null)
+			if (ctx.Set<Timesheet>().FirstOrDefault(t => t.Hours == SampleTimesheets.First().Hours) is null)
 			{
 				ctx.Set<Timesheet>().AddRange(SampleTimesheets);
 			}

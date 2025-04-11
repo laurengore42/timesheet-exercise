@@ -16,17 +16,15 @@ namespace Timesheets.Tests
 
             var ctxMock = new Mock<TimesheetDbContext>();
             var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			var usersSet = new Mock<DbSet<User>>();
-			var projectsSet = new Mock<DbSet<Project>>();
-            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
+            TestingHelper.SetupDbContext(ctxMock, timesheetsSet);
 
 			Timesheet newTimesheet = new()
 			{
-				UserId = 2000,
-				ProjectId = 1000,
-				Date = new DateOnly(2014, 10, 22),
-				Memo = "Developed new feature X",
-				Hours = 4
+				UserId = TestingHelper.SampleUsers.First().Id,
+				ProjectId = TestingHelper.SampleProjects.First().Id,
+                Date = TestingHelper.SampleTimesheets.First().Date,
+                Memo = TestingHelper.SampleTimesheets.First().Memo,
+                Hours = TestingHelper.SampleTimesheets.First().Hours
 			};
 
 			var timesheetService = new TimesheetService(ctxMock.Object);
@@ -49,18 +47,16 @@ namespace Timesheets.Tests
 
 			var ctxMock = new Mock<TimesheetDbContext>();
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			var usersSet = new Mock<DbSet<User>>();
-			var projectsSet = new Mock<DbSet<Project>>();
-			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
+			TestingHelper.SetupDbContext(ctxMock, timesheetsSet);
 
 			Timesheet newTimesheet = new()
-			{
-				UserId = 2000,
-				ProjectId = -1,
-				Date = new DateOnly(2014, 10, 22),
-				Memo = "Developed new feature X",
-				Hours = 4
-			};
+            {
+                UserId = TestingHelper.SampleUsers.First().Id,
+                ProjectId = -1,
+                Date = TestingHelper.SampleTimesheets.First().Date,
+                Memo = TestingHelper.SampleTimesheets.First().Memo,
+                Hours = TestingHelper.SampleTimesheets.First().Hours
+            };
 
 			var timesheetService = new TimesheetService(ctxMock.Object);
 
@@ -82,18 +78,16 @@ namespace Timesheets.Tests
 
 			var ctxMock = new Mock<TimesheetDbContext>();
 			var timesheetsSet = new Mock<DbSet<Timesheet>>();
-			var usersSet = new Mock<DbSet<User>>();
-			var projectsSet = new Mock<DbSet<Project>>();
-			TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
+			TestingHelper.SetupDbContext(ctxMock, timesheetsSet);
 
 			Timesheet newTimesheet = new()
-			{
-				UserId = -1,
-                ProjectId = 1000,
-                Date = new DateOnly(2014, 10, 22),
-				Memo = "Developed new feature X",
-				Hours = 4
-			};
+            {
+                UserId = -1,
+                ProjectId = TestingHelper.SampleProjects.First().Id,
+                Date = TestingHelper.SampleTimesheets.First().Date,
+                Memo = TestingHelper.SampleTimesheets.First().Memo,
+                Hours = TestingHelper.SampleTimesheets.First().Hours
+            };
 
 			var timesheetService = new TimesheetService(ctxMock.Object);
 
@@ -114,10 +108,7 @@ namespace Timesheets.Tests
             // Arrange
 
             var ctxMock = new Mock<TimesheetDbContext>();
-            var timesheetsSet = new Mock<DbSet<Timesheet>>();
-            var usersSet = new Mock<DbSet<User>>();
-            var projectsSet = new Mock<DbSet<Project>>();
-            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
+            TestingHelper.SetupDbContext(ctxMock);
 
             var timesheetService = new TimesheetService(ctxMock.Object);
 
@@ -127,7 +118,7 @@ namespace Timesheets.Tests
 
             // Assert
 
-            var firstResult = result.FirstOrDefault(t => t.UserName == "John Smith" && t.Date == "22/10/2014");
+            var firstResult = result.FirstOrDefault(t => t.UserName == TestingHelper.SampleUsers.First().Name && t.Date == "22/10/2014");
             Assert.NotNull(firstResult);
             Assert.Equal(4, firstResult.Hours);
             Assert.Equal(8, firstResult.TotalHours);
@@ -138,21 +129,15 @@ namespace Timesheets.Tests
         {
             // Arrange
 
-            var ctxMock = new Mock<TimesheetDbContext>();
-            var timesheetsSet = new Mock<DbSet<Timesheet>>();
-            var usersSet = new Mock<DbSet<User>>();
-            var projectsSet = new Mock<DbSet<Project>>();
-            TestingHelper.DoDbContextSetup(ctxMock, timesheetsSet, usersSet, projectsSet);
-
             Timesheet newTimesheet = new()
             {
-                UserId = 2000,
-                User = TestingHelper.SampleUsers.First(u => u.Id == 2000),
-                ProjectId = 1000,
-                Project = TestingHelper.SampleProjects.First(p => p.Id == 1000),
+                UserId = TestingHelper.SampleUsers.First().Id,
+                User = TestingHelper.SampleUsers.First(),
+                ProjectId = TestingHelper.SampleProjects.First().Id,
+                Project = TestingHelper.SampleProjects.First(),
                 Date = new DateOnly(2014, 10, 22),
                 Memo = "Test,words",
-                Hours = 4
+                Hours = TestingHelper.SampleTimesheets.First().Hours
             };
 
             // Act
@@ -164,6 +149,38 @@ namespace Timesheets.Tests
 
             Assert.Equal("Test,words", plainResult.Memo);
             Assert.Equal("Test words", strippedResult.Memo);
+        }
+
+        [Fact]
+        public void VerifyCsvExport()
+        {
+            // Arrange
+
+            var ctxMock = new Mock<TimesheetDbContext>();
+            TestingHelper.SetupDbContext(ctxMock);
+
+            var timesheetService = new TimesheetService(ctxMock.Object);
+            var csvService = new CsvService(ctxMock.Object, timesheetService);
+            var csvPath = "test-export.csv";
+
+            // Act
+
+            csvService.CsvTimesheetExport(csvPath);
+
+            // Assert
+
+            string path = csvPath;
+            using (StreamReader sr = File.OpenText(path))
+            {
+                string fileContents = sr.ReadToEnd();
+                Assert.NotNull(fileContents);
+                var fileLines = fileContents.Split("\r\n");
+                Assert.Equal(TestingHelper.SampleTimesheets.Length + 2, fileLines.Length);
+                var firstLine = fileLines[0];
+                var secondLine = fileLines[1];
+                Assert.Equal("UserId,UserName,Date,ProjectId,ProjectName,Memo,Hours,TotalHours", firstLine);
+                Assert.Equal("2000,John Smith,22/10/2014,1000,Project Alpha,Developed new feature X,4,8", secondLine);
+            }
         }
     }
 }

@@ -18,8 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Timesheets.Core\Timesheets.Core.csproj" />
-    <ProjectReference Include="..\src\Timesheets.Web.Ui\Timesheets.Web.Ui.csproj" />
+    <ProjectReference Include="..\Timesheets.Core\Timesheets.Core.csproj" />
+    <ProjectReference Include="..\Timesheets.Web.Ui\Timesheets.Web.Ui.csproj" />
   </ItemGroup>
 
   <ItemGroup>

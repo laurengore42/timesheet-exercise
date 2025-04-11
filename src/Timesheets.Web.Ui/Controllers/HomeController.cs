@@ -12,7 +12,7 @@ namespace Timesheets.Web.Ui.Controllers
 
         public IActionResult CsvTimesheetExport()
         {
-            csvService.CsvTimesheetExport();
+            csvService.CsvTimesheetExport(@"wwwroot\export.csv");
 
             return Redirect("/export.csv");
         }

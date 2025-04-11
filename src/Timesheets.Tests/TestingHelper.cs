@@ -42,41 +42,43 @@ namespace Timesheets.Tests
         public static readonly Timesheet[] SampleTimesheets = [
             new()
             {
-                UserId = 2000,
-                User = SampleUsers.FirstOrDefault(x => x.Id == 2000),
-                ProjectId = 1000,
-                Project = SampleProjects.FirstOrDefault(x => x.Id == 1000),
+                UserId = SampleUsers[0].Id,
+                User = SampleUsers[0],
+                ProjectId = SampleProjects[0].Id,
+                Project = SampleProjects[0],
                 Date = new DateOnly(2014, 10, 22),
                 Memo = "Developed new feature X",
                 Hours = 4
             },
             new()
             {
-                UserId = 2000,
-                User = SampleUsers.FirstOrDefault(x => x.Id == 2000),
-                ProjectId = 1001,
-                Project = SampleProjects.FirstOrDefault(x => x.Id == 1001),
+                UserId = SampleUsers[0].Id,
+                User = SampleUsers[0],
+                ProjectId = SampleProjects[1].Id,
+                Project = SampleProjects[1],
                 Date = new DateOnly(2014, 10, 22),
                 Memo = "Fixed bugs in module Y",
                 Hours = 4
             },
             new()
             {
-                UserId = 2001,
-                User = SampleUsers.FirstOrDefault(x => x.Id == 2001),
-                ProjectId = 1002,
-                Project = SampleProjects.FirstOrDefault(x => x.Id == 1002),
+                UserId = SampleUsers[1].Id,
+                User = SampleUsers[1],
+                ProjectId = SampleProjects[2].Id,
+                Project = SampleProjects[2],
                 Date = new DateOnly(2014, 10, 22),
                 Memo = "Conducted user testing",
                 Hours = 6
             }
         ];
 
-        public static void DoDbContextSetup(Mock<TimesheetDbContext> ctxMock, Mock<DbSet<Timesheet>> timesheetsSet, Mock<DbSet<User>> usersSet, Mock<DbSet<Project>> projectsSet)
-		{
-			ctxMock.Setup(x => x.Timesheets).ReturnsDbSet(SampleTimesheets, timesheetsSet);
-			ctxMock.Setup(x => x.Users).ReturnsDbSet(SampleUsers, usersSet);
-			ctxMock.Setup(x => x.Projects).ReturnsDbSet(SampleProjects, projectsSet);
+        public static void SetupDbContext(Mock<TimesheetDbContext> ctxMock, Mock<DbSet<Timesheet>>? timesheetsSet = null)
+        {
+            timesheetsSet ??= new Mock<DbSet<Timesheet>>();
+
+            ctxMock.Setup(x => x.Timesheets).ReturnsDbSet(SampleTimesheets, timesheetsSet);
+			ctxMock.Setup(x => x.Users).ReturnsDbSet(SampleUsers);
+			ctxMock.Setup(x => x.Projects).ReturnsDbSet(SampleProjects);
 		}
 	}
 }
