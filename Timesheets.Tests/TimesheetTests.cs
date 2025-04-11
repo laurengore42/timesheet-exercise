@@ -123,10 +123,10 @@ namespace Timesheets.Tests
             // Act
 
             var result = timesheetService.FetchAllTimesheets();
-            var firstResult = result.FirstOrDefault(t => t.UserName == "John Smith" && t.Date == "22/10/2014");
 
             // Assert
 
+            var firstResult = result.FirstOrDefault(t => t.UserName == "John Smith" && t.Date == "22/10/2014");
             Assert.NotNull(firstResult);
             Assert.Equal(4, firstResult.Hours);
             Assert.Equal(8, firstResult.TotalHours);
