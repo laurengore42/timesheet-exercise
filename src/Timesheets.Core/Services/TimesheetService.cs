@@ -34,10 +34,10 @@ namespace Timesheets.Core.Services
                 .Include(t => t.Project)
                 .ToList()
                 .Select(t => new TimesheetViewModel(t,
-                    hoursPerUserPerDay.Find(
-                        hours => hours.Key.UserId == t.UserId &&
-                                 hours.Key.Date == t.Date)?
-                        .HourSum ?? 0,
+                    hoursPerUserPerDay.Find(hours =>
+                        hours.Key.UserId == t.UserId &&
+                        hours.Key.Date == t.Date)?
+                    .HourSum ?? 0,
                     stripCommas));
 
         }
