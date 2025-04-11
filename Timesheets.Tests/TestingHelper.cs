@@ -42,27 +42,30 @@ namespace Timesheets.Tests
         public static readonly Timesheet[] SampleTimesheets = [
             new()
             {
-                Id = 3001,
-                PersonId = 1,
-                ProjectId = 1,
+                PersonId = 2000,
+                Person = SamplePersons.FirstOrDefault(x => x.Id == 2000),
+                ProjectId = 1000,
+                Project = SampleProjects.FirstOrDefault(x => x.Id == 1000),
                 Date = new DateOnly(2014, 10, 22),
                 Memo = "Developed new feature X",
                 Hours = 4
             },
             new()
             {
-                Id = 3002,
-                PersonId = 1,
-                ProjectId = 2,
+                PersonId = 2000,
+                Person = SamplePersons.FirstOrDefault(x => x.Id == 2000),
+                ProjectId = 1001,
+                Project = SampleProjects.FirstOrDefault(x => x.Id == 1001),
                 Date = new DateOnly(2014, 10, 22),
                 Memo = "Fixed bugs in module Y",
                 Hours = 4
             },
             new()
             {
-                Id = 3003,
-                PersonId = 2,
-                ProjectId = 3,
+                PersonId = 2001,
+                Person = SamplePersons.FirstOrDefault(x => x.Id == 2001),
+                ProjectId = 1002,
+                Project = SampleProjects.FirstOrDefault(x => x.Id == 1002),
                 Date = new DateOnly(2014, 10, 22),
                 Memo = "Conducted user testing",
                 Hours = 6

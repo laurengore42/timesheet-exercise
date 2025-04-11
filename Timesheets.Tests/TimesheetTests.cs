@@ -21,8 +21,8 @@ namespace Timesheets.Tests
 
 			Timesheet newTimesheet = new()
 			{
-				PersonId = 0,
-				ProjectId = 0,
+				PersonId = 2000,
+				ProjectId = 1000,
 				Date = new DateOnly(2014, 10, 22),
 				Memo = "Developed new feature X",
 				Hours = 4
@@ -128,6 +128,7 @@ namespace Timesheets.Tests
             // Assert
 
             Assert.NotNull(firstResult);
+            Assert.Equal(4, firstResult.Hours);
             Assert.Equal(8, firstResult.TotalHours);
         }
     }
